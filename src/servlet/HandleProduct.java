@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServlet;
 /**
  * Created by Sur.Vival on 23/11/2015.
  */
-@WebServlet(name = "HandleProduct" , urlPatterns = {""})
 public class HandleProduct extends HttpServlet {
 
 }
