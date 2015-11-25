@@ -4,19 +4,19 @@ package bean;
  * Created by Sur.Vival on 23/11/2015.
  */
 public class CategoryBean {
-    private String id;
+    private String categoryID;
     private String name;
-    private String type;
+    private String cType;
 
     public CategoryBean() {
     }
 
-    public String getId() {
-        return id;
+    public String getCategoryID() {
+        return categoryID;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCategoryID(String categoryID) {
+        this.categoryID = categoryID;
     }
 
     public String getName() {
@@ -27,11 +27,11 @@ public class CategoryBean {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public String getcType() {
+        return cType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setcType(String cType) {
+        this.cType = cType;
     }
 }

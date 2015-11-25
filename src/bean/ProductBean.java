@@ -4,21 +4,22 @@ package bean;
  * Created by Sur.Vival on 23/11/2015.
  */
 public class ProductBean {
-    private String id;
+    private String productID;
     private String name;
     private String descriptions;
-    private String category;
-    private int price = 0;
+    private CategoryBean categoryID;
+    private int price;
+    private String picturePath;
 
     public ProductBean() {
     }
 
-    public String getId() {
-        return id;
+    public String getProductID() {
+        return productID;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setProductID(String productID) {
+        this.productID = productID;
     }
 
     public String getName() {
@@ -37,12 +38,12 @@ public class ProductBean {
         this.descriptions = descriptions;
     }
 
-    public String getCategory() {
-        return category;
+    public CategoryBean getCategoryID() {
+        return categoryID;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryID(CategoryBean categoryID) {
+        this.categoryID = categoryID;
     }
 
     public int getPrice() {
@@ -51,5 +52,13 @@ public class ProductBean {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
     }
 }
