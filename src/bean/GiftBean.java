@@ -1,12 +1,10 @@
 package bean;
 
-/**
- * Created by Sur.Vival on 23/11/2015.
- */
 public class GiftBean {
     private String id;
     private String name;
     private String picturePath;
+    private int requireBonus;
 
     public GiftBean() {
     }
@@ -33,5 +31,13 @@ public class GiftBean {
 
     public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
+    }
+
+    public int getRequireBonus() {
+        return requireBonus;
+    }
+
+    public void setRequireBonus(int requireBonus) {
+        this.requireBonus = requireBonus;
     }
 }

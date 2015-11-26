@@ -2,16 +2,13 @@ package bean;
 
 import java.util.Date;
 
-/**
- * Created by Sur.Vival on 23/11/2015.
- */
 public class OrdersBean {
     private String orderID;
     private AccountBean client;
     private String status;
     private String deliveryAddress;
     private Date pickupTime;
-    private String cancelled;
+    private boolean cancelled;
 
     public OrdersBean() {
     }
@@ -56,11 +53,11 @@ public class OrdersBean {
         this.pickupTime = pickupTime;
     }
 
-    public String getCancelled() {
+    public boolean getCancelled() {
         return cancelled;
     }
 
-    public void setCancelled(String cancelled) {
+    public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
     }
 }
