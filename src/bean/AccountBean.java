@@ -7,6 +7,7 @@ public class AccountBean {
     private String id;
     private String password;
     private String userType;
+    private String name;
     private String tel;
     private String address;
     private int bounsPoint;
@@ -38,6 +39,10 @@ public class AccountBean {
     public void setUserType(String userType) {
         this.userType = userType;
     }
+
+    public String getName() { return name;}
+
+    public void setName(String name) { this.name = name; }
 
     public String getTel() {
         return tel;
