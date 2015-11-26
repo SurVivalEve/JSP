@@ -1,10 +1,13 @@
 package bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class OrdersBean {
     private String orderID;
     private AccountBean client;
+    private ArrayList<ProductBean> products;
+    private int qty;
     private String status;
     private String deliveryAddress;
     private Date pickupTime;
@@ -27,6 +30,18 @@ public class OrdersBean {
 
     public void setClient(AccountBean client) {
         this.client = client;
+    }
+
+    public ArrayList<ProductBean> getProductBeans() { return products; }
+
+    public void setProducts(ArrayList<ProductBean> products) { this.products = products; }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
     }
 
     public String getStatus() {
