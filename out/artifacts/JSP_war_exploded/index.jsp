@@ -11,6 +11,6 @@
     <title></title>
   </head>
   <body>
-<h1>Fuck TIN</h1>
+  <a href="register.jsp">Register</a>
   </body>
 </html>

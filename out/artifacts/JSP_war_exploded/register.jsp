@@ -11,6 +11,28 @@
     <title></title>
 </head>
 <body>
-
+<form method="get" action="registerCheck">
+    <input type="hidden" name="action" value="register"/>
+    <table border="0">
+        <td><p align="right">Name:</p></td>
+        <td><p><input type="text" name="name" maxlength="10" size="15"></p></td>
+        </tr>
+        <tr>
+            <td><p align="right">Tel:</p></td>
+            <td><p><input type="text" name="tel" maxlength="10" size="15"></p></td>
+        </tr>
+        <tr>
+            <td><p align="right">Delivery:</p></td>
+            <td><p><input type="text" name="delivery" maxlength="10" size="15"></p></td>
+        </tr>
+        <tr>
+            <td><p align="right">Address:</p></td>
+            <td><p><input type="password" name="address" maxlength="10" size="15"></p></td>
+        </tr>
+        <tr>
+            <td colspan="2"><p align="center"><input type="submit" value="Login"></p></td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
