@@ -8,10 +8,11 @@ public class AccountBean {
     private String password;
     private String userType;
     private String name;
+    private int amount;
     private String tel;
     private String address;
     private int bounsPoint;
-    private boolean validation;
+    private String validation;
 
     public AccountBean() {
     }
@@ -44,6 +45,14 @@ public class AccountBean {
 
     public void setName(String name) { this.name = name; }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
     public String getTel() {
         return tel;
     }
@@ -68,11 +77,11 @@ public class AccountBean {
         this.bounsPoint = bounsPoint;
     }
 
-    public boolean isValidation() {
+    public String isValidation() {
         return validation;
     }
 
-    public void setValidation(boolean validation) {
+    public void setValidation(String validation) {
         this.validation = validation;
     }
 }

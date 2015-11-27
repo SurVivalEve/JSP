@@ -55,13 +55,17 @@ public class LoginController extends HttpServlet {
         // har code username and password is abc and 123
         if(db.isValidUser(id,password)) {
             // obtain session from request
-            if (db.identityCheck(id,password)) {
-
+            if (db.identityCheck(id, password)) {
+                HttpSession clientSession = req.getSession(true);
+                AccountBean client = db.queryAconByID(id);
+                clientSession.setAttribute("userInfo", client);
             } else {
-
+                HttpSession adminSession = req.getSession(true);
+                AccountBean admin = db.queryAconByID(id);
+                adminSession.setAttribute("adminInfo",admin);
             }
             // store the userInfo to the session
-            targetURL = "/welcome.jsp";
+            targetURL = "/index.jsp";
         } else {
             targetURL = "/loginError.jsp";
         }

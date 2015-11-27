@@ -22,12 +22,12 @@
             <td><p><input type="text" name="tel" maxlength="10" size="15"></p></td>
         </tr>
         <tr>
-            <td><p align="right">Delivery:</p></td>
-            <td><p><input type="text" name="delivery" maxlength="10" size="15"></p></td>
+            <td><p align="right">Delivery Address:</p></td>
+            <td><p><input type="text" name="deliveryAddress" maxlength="10" size="15"></p></td>
         </tr>
         <tr>
-            <td><p align="right">Address:</p></td>
-            <td><p><input type="password" name="address" maxlength="10" size="15"></p></td>
+            <td><p align="right">Payment amount:</p></td>
+            <td><p><input type="number" name="payment" maxlength="10" size="15"></p></td>
         </tr>
         <tr>
             <td colspan="2"><p align="center"><input type="submit" value="Login"></p></td>
