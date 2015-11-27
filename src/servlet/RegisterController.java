@@ -14,9 +14,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
-/**
- * Created by Sur.Vival on 25/11/2015.
- */
 @WebServlet(name = "RegisterController", urlPatterns = {"/registerCheck"})
 public class RegisterController extends HttpServlet {
     private AccountDB db;

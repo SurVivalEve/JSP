@@ -1,5 +1,5 @@
 package servlet;
-// Tin
+
 import bean.AccountBean;
 import db.AccountDB;
 
@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-/**
- * Created by Sur.Vival on 25/11/2015.
- */
 @WebServlet(name = "LoginController", urlPatterns = {"/loginCheck"})
 public class LoginController extends HttpServlet {
     private AccountDB db;
@@ -57,11 +54,11 @@ public class LoginController extends HttpServlet {
             // obtain session from request
             if (db.identityCheck(id, password)) {
                 HttpSession clientSession = req.getSession(true);
-                AccountBean client = db.queryAconByID(id);
+                AccountBean client = db.queryByID(id);
                 clientSession.setAttribute("userInfo", client);
             } else {
                 HttpSession adminSession = req.getSession(true);
-                AccountBean admin = db.queryAconByID(id);
+                AccountBean admin = db.queryByID(id);
                 adminSession.setAttribute("adminInfo",admin);
             }
             // store the userInfo to the session

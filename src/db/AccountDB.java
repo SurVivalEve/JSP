@@ -128,7 +128,7 @@ public class AccountDB {
         return isClient;
     }
 
-    public AccountBean queryAconByID(String id) {
+    public AccountBean queryByID(String id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         AccountBean ab = null;

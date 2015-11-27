@@ -31,14 +31,24 @@ public class TestQueryCust {
 
         db.addRecord("O006","A001",products,"Process","",null);
         */
-        /*
+
         OrdersBean ob = db.queryByID("O001");
         System.out.println(ob.getOrderID());
         System.out.println(ob.getStatus());
         System.out.println(ob.getPickupTime());
         System.out.println(ob.getDeliveryAddress());
         System.out.println(ob.getCancelled());
+        System.out.println("------------");
         System.out.println(ob.getClient().getId());
+        System.out.println(ob.getClient().getPassword());
+        System.out.println(ob.getClient().getUserType());
+        System.out.println(ob.getClient().getName());
+        System.out.println(ob.getClient().getAmount());
+        System.out.println(ob.getClient().getTel());
+        System.out.println(ob.getClient().getAddress());
+        System.out.println(ob.getClient().getBounsPoint());
+        System.out.println(ob.getClient().isValidation());
+        System.out.println("------------");
         System.out.println(ob.getProductBeans().size());
         System.out.println("-------------------");
         for(int i=0; i<ob.getProductBeans().size();i++){
@@ -50,7 +60,7 @@ public class TestQueryCust {
             System.out.println(ob.getProductBeans().get(i).getPicturePath());
             System.out.println(ob.getProductBeans().get(i).getQty());
             System.out.println("-------------------");
-        }*/
+        }
         /*
         ArrayList<OrdersBean> obs = db.queryOrders();
         for(int i=0; i<obs.size(); i++) {
@@ -60,7 +70,17 @@ public class TestQueryCust {
             System.out.println(obs.get(i).getPickupTime());
             System.out.println(obs.get(i).getDeliveryAddress());
             System.out.println(obs.get(i).getCancelled());
-            System.out.println(obs.get(i).getClient().getId());
+            System.out.println("------------");
+            System.out.println(ob.getClient().getId());
+            System.out.println(ob.getClient().getPassword());
+            System.out.println(ob.getClient().getUserType());
+            System.out.println(ob.getClient().getName());
+            System.out.println(ob.getClient().getAmount());
+            System.out.println(ob.getClient().getTel());
+            System.out.println(ob.getClient().getAddress());
+            System.out.println(ob.getClient().getBounsPoint());
+            System.out.println(ob.getClient().isValidation());
+            System.out.println("------------");
             System.out.println(obs.get(i).getProductBeans().size());
             System.out.println("-------------------");
 

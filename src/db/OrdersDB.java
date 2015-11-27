@@ -96,8 +96,8 @@ public class OrdersDB {
                 ob.setOrderID(orderID);
 
                 //set account detail
-                AccountBean ab = new AccountBean();
-                ab.setId(rs.getString("clientID"));
+                AccountDB accountDB = new AccountDB(dburl,dbUser,dbPassword);
+                AccountBean ab = accountDB.queryByID(rs.getString("clientID"));
                 ob.setClient(ab);
 
                 ob.setStatus(rs.getString("status"));
@@ -155,8 +155,8 @@ public class OrdersDB {
                 ob.setOrderID(rs.getString("orderID"));
 
                 //set account detail
-                AccountBean ab = new AccountBean();
-                ab.setId(rs.getString("clientID"));
+                AccountDB accountDB = new AccountDB(dburl,dbUser,dbPassword);
+                AccountBean ab = accountDB.queryByID(rs.getString("clientID"));
                 ob.setClient(ab);
 
                 ob.setStatus(rs.getString("status"));
