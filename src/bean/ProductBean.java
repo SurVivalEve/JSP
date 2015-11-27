@@ -1,8 +1,5 @@
 package bean;
 
-/**
- * Created by Sur.Vival on 23/11/2015.
- */
 public class ProductBean {
     private String productID;
     private String name;
@@ -10,6 +7,7 @@ public class ProductBean {
     private CategoryBean categoryID;
     private int price;
     private String picturePath;
+    private int qty;
 
     public ProductBean() {
     }
@@ -60,5 +58,13 @@ public class ProductBean {
 
     public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
+    }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
     }
 }
