@@ -11,7 +11,7 @@
     <title></title>
 </head>
 <body>
-<form method="get" action="registerCheck">
+<form method="post" action="registerCheck">
     <input type="hidden" name="action" value="register"/>
     <table border="0">
         <td><p align="right">Name:</p></td>
@@ -30,7 +30,7 @@
             <td><p><input type="number" name="payment" maxlength="10" size="15"></p></td>
         </tr>
         <tr>
-            <td colspan="2"><p align="center"><input type="submit" value="Login"></p></td>
+            <td colspan="2"><p align="center"><input type="submit" value="Register"></p></td>
         </tr>
     </table>
 </form>

@@ -17,7 +17,7 @@ import java.sql.SQLException;
 /**
  * Created by Sur.Vival on 25/11/2015.
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/registerCheck"})
+@WebServlet(name = "RegisterController", urlPatterns = {"/registerCheck"})
 public class RegisterController extends HttpServlet {
     private AccountDB db;
 
@@ -53,7 +53,7 @@ public class RegisterController extends HttpServlet {
         String address = request.getParameter("deliveryAddress");
         String payment = request.getParameter("payment");
 
-        if(db.addUserInfo(name,tel,address)) {
+        if(db.addUserInfo(name,tel,address, payment)) {
             response.sendRedirect("registerSuccess.jsp");
         } else {
             PrintWriter out = response.getWriter();

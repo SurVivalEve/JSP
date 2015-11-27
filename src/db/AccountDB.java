@@ -4,6 +4,7 @@ import bean.AccountBean;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,50 +29,23 @@ public class AccountDB {
         return DriverManager.getConnection(dburl, dbUser, dbPassword);
     }
 
-    public boolean updateUserInfo(String id, String pwd) {
+    public boolean addUserInfo(String name, String tel, String deliveryAddress, String amount) {
         Connection connection = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
         try {
             connection = getConnection();
-            String preQueryStatement = "UPDATE account SET password = ? WHERE id = ?";
-            pStmnt = connection.prepareStatement(preQueryStatement);
-            pStmnt.setString(1, pwd);
-            pStmnt.setString(2, id);
-            int rowCount = pStmnt.executeUpdate();
-            if(rowCount >= 1) {
-                isSuccess = true;
-
-            }
-            pStmnt.close();
-            connection.close();
-
-        } catch (SQLException ex) {
-            while(ex != null) {
-                ex.printStackTrace();
-                ex = ex.getNextException();
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return isSuccess;
-    }
-
-    public boolean addUserInfo(String name, String tel, String deliveryAddress) {
-        Connection connection = null;
-        PreparedStatement pStmnt = null;
-        boolean isSuccess = false;
-        try {
-            connection = getConnection();
-            String preQueryStatement = "INSERT INTO account (id, name, userType, tel, address, bounsPoint, validation)  VALUES (?,?,?,?,?,?,?)";
+            String preQueryStatement = "INSERT INTO account VALUES (?,?,?,?,?,?,?,?,?)";
             pStmnt = connection.prepareStatement(preQueryStatement);
             pStmnt.setString(1, String.valueOf(clientCount));
-            pStmnt.setString(2, name);
-            pStmnt.setString(3, "client");
-            pStmnt.setString(4, tel);
-            pStmnt.setString(5, deliveryAddress);
-            pStmnt.setInt(6, 0);
-            pStmnt.setString(7, "N");
+            pStmnt.setString(2, createRandomPassword());
+            pStmnt.setString(3, "Client");
+            pStmnt.setString(4, name);
+            pStmnt.setString(5, amount);
+            pStmnt.setString(6, tel);
+            pStmnt.setString(7, deliveryAddress);
+            pStmnt.setInt(8, 0);
+            pStmnt.setString(9, "N");
             int rowCount = pStmnt.executeUpdate();
             if(rowCount >= 1) {
                 isSuccess = true;
@@ -114,6 +88,19 @@ public class AccountDB {
             ex.printStackTrace();
         }
         return isValid;
+    }
+
+    protected String createRandomPassword() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 9) {
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
     }
 
     public boolean identityCheck(String username, String password) {

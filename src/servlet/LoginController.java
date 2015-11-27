@@ -98,6 +98,7 @@ public class LoginController extends HttpServlet {
         if(session != null) {
             // remove the attribute from session
             session.removeAttribute("userInfo");
+            session.removeAttribute("adminInfo");
             //  invalidate the session
             session.invalidate();
         }
