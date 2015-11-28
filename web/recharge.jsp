@@ -13,12 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/recharge.css">
 </head>
 <%
-    AccountBean client = null;
-    try {
-        client = (AccountBean) session.getAttribute("userInfo");
-    } catch (NullPointerException ex) {
-        ex.printStackTrace();
-    }
+    AccountBean client = (AccountBean) session.getAttribute("userInfo");
 %>
 <body>
 <form id="formCharge" action="recharge" method="post">
@@ -31,6 +26,13 @@
         <br/><br/>
         Recharge amount : <input type="number" name="amount" min="500" max="50000"> HKD
         <br/><br/>
+        Payment Method :
+        <div>
+            <ul style="list-style: none; border: 1">
+                <li>Visa</li>
+                <li>Master</li>
+            </ul>
+        </div>
         <input type="submit" value="Recharge">
     </fieldset>
 </form>
