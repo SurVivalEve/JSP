@@ -109,7 +109,7 @@ public class AccountDB {
         PreparedStatement pStmnt = null;
         try{
             connection = getConnection();
-            String preQueryStatement = "SELECT * FROM account WHERE id = ? and password = ? and userType = 'client' ";
+            String preQueryStatement = "SELECT * FROM account WHERE id = ? and password = ? and userType = 'client' and validation = 'Y' ";
             pStmnt = connection.prepareStatement(preQueryStatement);
             pStmnt.setString(1,username);
             pStmnt.setString(2,password);

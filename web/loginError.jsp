@@ -11,7 +11,7 @@
     <title></title>
 </head>
 <body>
-<p>Incorrect Password</p>
+<p>Incorrect Password or Non-Verifies Account</p>
 <p>
   <% out.println("<a href=\""+ request.getContextPath()+"/loginCheck\">Login again</a>");%>
 </p>

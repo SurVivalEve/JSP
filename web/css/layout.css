@@ -55,6 +55,16 @@
     background: orange;
 }
 
+.logined-details li {
+    display: inline;
+    list-style: none;
+    margin-right: 5%;
+    color: darkorange;
+    width: auto;
+    height: auto;
+    align-content: center;
+}
+
 .c-main {
     display: flex;
 }

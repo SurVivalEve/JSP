@@ -45,6 +45,9 @@
         }
     </script>
 </head>
+<%
+    AccountBean client = (AccountBean) session.getAttribute("userInfo");
+%>
 <body>
 <div class="nav-bar">
     <div id="overlay" onclick="quitOverLay();">
@@ -88,19 +91,27 @@
             <ul>
                 <li>Profile</li>
                 <li><a href="searchProduct.jsp">Products</a></li>
-                <li>Gifts</li>
+                <li><a href="redeemGift.jsp">RedeemGift</a></li>
                 <li><a href="shoppingCart.jsp">Shopping Cart</a></li>
-                <li>Test 1</li>
+                <%
+                    try {
+                        if (client != null)
+                            out.print("<li><a href=\"recharge.jsp\">Recharge Funds</a></li>");
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                %>
+
             </ul>
         </div>
         <div>
             <%
                 try {
-                    AccountBean client = (AccountBean) session.getAttribute("userInfo");
-                    if (client != null) {
-                        out.print("<h4>Welcome " + client.getName() + " </h4>");
-                    } else {
-                    }
+                    if (client != null)
+                        out.println("<div><ul>");
+                        out.println("<li>Welcome "+client.getName()+"</li>");
+                        out.println("<li>Account amount "+client.getAmount()+"</li");
+                        out.println("</ul></div>");
                 } catch (NullPointerException ex) {
                     ex.printStackTrace();
                 }
