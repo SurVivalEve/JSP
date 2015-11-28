@@ -1,0 +1,220 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #F9F6F1;
+}
+
+* {
+    font-family: 'Microsoft JhengHei UI','Microsoft JhengHei', 微軟正黑體, 微软正黑体, Gothic, Helvetica, Arial, MingLiU_HKSCS, sans-serif;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.SITE_STRUCTURE {
+    max-width: 980px;
+    min-width: 365px;
+    margin: 0px auto;
+}
+
+h1, h2 {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    font-family: 'Microsoft JhengHei UI','Microsoft JhengHei', 微軟正黑體, 微软正黑体, Gothic, MingLiU_HKSCS, sans-serif;
+    color: #436A78;
+}
+
+p {
+    color: #606060;
+    letter-spacing: 0.05em;
+}
+
+#topDIV_ul {
+    height: 60px;
+    padding-left: 0px;
+    list-style: outside none none;
+}
+
+.web_title {
+    float: left;
+    font-size: 40px;
+    font-family: 'Jura', 'Microsoft JhengHei UI','Microsoft JhengHei', 微軟正黑體, 微软正黑体, MingLiU_HKSCS, sans-serif;
+    color: #0F2B5C;
+    padding: 8px;
+    font-style: italic;
+}
+
+#top_nav {
+    position: absolute;
+    left: 0px;
+    height: 54px;
+    width: 100%;
+    z-index: 200;
+    background-color: #365465;
+    box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+#top_nav ul {
+    list-style: outside none none;
+    padding-left: 0px;
+    padding-top: 0px;
+    height: 100%;
+}
+
+#top_nav ul li {
+    height: 100%;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+#nav_items li {
+    float: left;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    height: 100%;
+    max-height: 100px;
+    border-bottom: 3px solid #C65C2B;
+    border-left: 1px solid rgba(93, 93, 93, 0.46);
+    background-color: #6C6C6C;
+
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+#nav_login_btn {
+    min-width: 80px;
+}
+
+#content {
+    position: relative;
+    top: 25px;
+    z-index: 100;
+}
+
+.tabs a {
+    text-decoration: none;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+.nav_word {
+    display: block;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+.nav_word a {
+    color: #FFF;
+    font-size: 17px;
+    font-family: 'Jura', 'Microsoft JhengHei UI','Microsoft JhengHei', 微軟正黑體, 微软正黑体, MingLiU_HKSCS, sans-serif;
+}
+
+.tabs_item {
+    width: 100%;
+    display: none;
+    padding: 30px 0;
+}
+
+#nav_items li.tab_current {
+    color: #fff;
+    background-color: #C65C2B;
+}
+
+#nav_items li.tab_other:hover {
+    color: #fff;
+    background-color: #8AC007;
+}
+
+@font-face {
+    font-family: 'Jura';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Jura Regular'), local('Jura-Regular'),
+    url('../fonts/Jura-Regular.woff2') format('woff2'),
+    url('../fonts/Jura-Regular.woff') format('woff');
+}
+
+.select_main {
+    max-width: 1000px;
+    margin-top: 125px;
+}
+
+.maintain_client {
+    max-width: 1000px;
+    margin-top: 30px;
+}
+
+.maintain_product {
+    max-width: 1000px;
+    margin-top: 30px;
+}
+
+.maintain_order {
+    max-width: 1000px;
+    margin-top: 30px;
+}
+
+.item_border {
+    background-color: #4A4A4A;
+    background-size: auto 100%;
+    background-position: center;
+    height: 100%;
+}
+
+.item_div {
+    float: left;
+    width: 60%;
+    max-width: 33.33%;
+    height: 250px;
+    padding: 25px;
+    overflow: hidden;
+}
+
+.item_div:hover {
+    padding: 20px;
+}
+
+.item_word_border {
+    position: relative;
+    margin: 0px 5px;
+}
+
+.item_word {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    margin-top: -20px;
+}
+
+.item_word_displayTime {
+    text-align: center;
+    margin-top: 120px;
+    color: #606060;
+    letter-spacing: 0.05em;
+    font-size: 10px;
+}
+
+.item_word h2 {
+    font-family: 微軟正黑體, Gothic, Helvetica, "Microsoft JhengHei",
+    微软正黑体, sans-serif;
+    margin-top: 0px;
+}
+
+.item_word h2, .item_word p {
+    -webkit-transform: translateY(50px);
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    -webkit-perspective: 1000;
+    -webkit-backface-visibility: hidden;
+    transform: translateY(50px);
+    transition: opacity 0.2s, transform 0.3s;
+}
