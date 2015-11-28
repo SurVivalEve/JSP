@@ -17,11 +17,19 @@
 </head>
 <body>
 <jsp:include page="m_navigation.jsp" />
-<%
-    ArrayList<AccountBean>
-%>
-<%
-
-%>
+<div id="content" class="SITE_STRUCTURE content">
+    <div style="display: block;" class="tabs_item" id="select_main">
+        <div id="message">
+            <%
+                out.println(request.getAttribute("abc"));
+                ArrayList<AccountBean> abs = (ArrayList<AccountBean>) request.getAttribute("accounts");
+                out.println(abs.size());
+                for(int i=0; i<abs.size(); i++){
+                    out.println("hi");
+                }
+            %>
+        </div>
+    </div>
+</div>
 </body>
 </html>

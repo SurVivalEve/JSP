@@ -19,7 +19,7 @@
                         <div class="nav_word">Main</div>
                     </li>
                 </a>
-                <a href="m_client.jsp">
+                <a href="m_client?action=verify">
                     <li class="tabs pageActive tab_other" id="client">
                         <div class="nav_word">Client</div>
                     </li>

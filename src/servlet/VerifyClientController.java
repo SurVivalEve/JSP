@@ -29,7 +29,11 @@ public class VerifyClientController  extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
         ArrayList<AccountBean> accounts = db.queryAccount();
-        req.setAttribute("accounts", accounts);
+        String abc = "cannot connect to db";
+        if(accounts.size()==0)
+            req.setAttribute("abc", abc);
+        if("verify".equalsIgnoreCase(req.getParameter("action")))
+            req.setAttribute("accounts", accounts);
         RequestDispatcher rd;
         rd = getServletContext().getRequestDispatcher("/m_client.jsp");
         rd.forward(req,res);
