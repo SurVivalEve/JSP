@@ -31,16 +31,16 @@
     width: 75%;
 }
 
-.nav-btn li a:hover {
-    color: limegreen;
-}
-
 .nav-btn li a {
     text-decoration: none;
 }
 
 .nav-btn li a:visited {
     color: darkorange;
+}
+
+.nav-btn li a:hover {
+    color: limegreen;
 }
 
 .right-side button {

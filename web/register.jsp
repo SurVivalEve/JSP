@@ -6,33 +6,27 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="en">
 <head>
-    <title></title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/register_css.css">
 </head>
 <body>
-<form method="post" action="registerCheck">
-    <input type="hidden" name="action" value="register"/>
-    <table border="0">
-        <td><p align="right">Name:</p></td>
-        <td><p><input type="text" name="name" maxlength="10" size="15"></p></td>
-        </tr>
-        <tr>
-            <td><p align="right">Tel:</p></td>
-            <td><p><input type="text" name="tel" maxlength="10" size="15"></p></td>
-        </tr>
-        <tr>
-            <td><p align="right">Delivery Address:</p></td>
-            <td><p><input type="text" name="deliveryAddress" maxlength="10" size="15"></p></td>
-        </tr>
-        <tr>
-            <td><p align="right">Payment amount:</p></td>
-            <td><p><input type="number" name="payment" maxlength="10" size="15"></p></td>
-        </tr>
-        <tr>
-            <td colspan="2"><p align="center"><input type="submit" value="Register"></p></td>
-        </tr>
-    </table>
-</form>
+<div class="c-top">
+    <div id="head">REGISTER</div>
+</div>
+
+<div class="c-main">
+    <div>Username:<input type="text"></div>
+    <div>Tel:<input type="text"></div>
+    <div>Delivery:<input type="text"></div>
+    <div>Address:<input type="text"></div>
+    <div>Payment:<input type="text"></div>
+    <div><input type="hidden" name="action" value="register"></div>
+    <div>
+        <button type="submit"  id="a-submit">Confirm</button>
+    </div>
+</div>
 </body>
 </html>
