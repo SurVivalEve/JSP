@@ -3,11 +3,13 @@ package servlet;
 import bean.AccountBean;
 import db.AccountDB;
 
+import javax.jms.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -41,6 +43,11 @@ public class RechargeController extends HttpServlet {
 
     private void doRecharge(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
         String amount = request.getParameter("amount");
-        
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            AccountBean bean = (AccountBean) session.getAttribute("userInfo");
+            db.updateAccountAmount(bean.getId(), Integer.parseInt(amount));
+        }
+
     }
 }

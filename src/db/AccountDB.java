@@ -129,6 +129,35 @@ public class AccountDB {
         return isClient;
     }
 
+    public boolean updateAccountAmount(String id, int amount) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        boolean isSuccess = false;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "UPDATE account SET id = ? , amount = ? WHERE id = ? ";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1,id);
+            pStmnt.setInt(2,amount);
+            pStmnt.setString(3,id);
+            int rowCount = pStmnt.executeUpdate();
+            if(rowCount >= 1) {
+                isSuccess = true;
+            }
+            pStmnt.close();
+            cnnct.close();
+
+        } catch (SQLException ex) {
+            while(ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
+
     public AccountBean queryByID(String id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;

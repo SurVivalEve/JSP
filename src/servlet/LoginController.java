@@ -53,14 +53,14 @@ public class LoginController extends HttpServlet {
         if(db.isValidUser(id,password)) {
             // obtain session from request
             if (db.identityCheck(id, password)) {
-                HttpSession clientSession = req.getSession(true);
+                HttpSession session = req.getSession(true);
                 AccountBean client = db.queryByID(id);
-                clientSession.setAttribute("userInfo", client);
+                session.setAttribute("userInfo", client);
                 targetURL = "/index.jsp";
             } else {
-                HttpSession adminSession = req.getSession(true);
+                HttpSession session = req.getSession(true);
                 AccountBean admin = db.queryByID(id);
-                adminSession.setAttribute("adminInfo",admin);
+                session.setAttribute("adminInfo",admin);
                 targetURL = "/manager.jsp";
             }
         } else {
