@@ -10,31 +10,94 @@
 <html>
 <head>
     <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="js/jquery.payment.js"></script>
     <link rel="stylesheet" type="text/css" href="css/recharge.css">
+
+    <style type="text/css" media="screen">
+        .has-error input {
+            border-width: 2px;
+        }
+
+        .validation.text-danger:after {
+            content: 'Validation failed';
+        }
+
+        .validation.text-success:after {
+            content: 'Validation passed';
+        }
+    </style>
+
+    <script>
+        jQuery(function ($) {
+            $('.cc-number').payment('formatCardNumber');
+            $('.cc-exp').payment('formatCardExpiry');
+            $('.cc-cvc').payment('formatCardCVC');
+
+            $.fn.toggleInputError = function (erred) {
+                this.parent('.form-group').toggleClass('has-error', erred);
+                return this;
+            };
+
+            $('form').submit(function (e) {
+                e.preventDefault();
+
+                var cardType = $.payment.cardType($('.cc-number').val());
+                $('.cc-number').toggleInputError(!$.payment.validateCardNumber($('.cc-number').val()));
+                $('.cc-exp').toggleInputError(!$.payment.validateCardExpiry($('.cc-exp').payment('cardExpiryVal')));
+                $('.cc-cvc').toggleInputError(!$.payment.validateCardCVC($('.cc-cvc').val(), cardType));
+                $('.cc-brand').text(cardType);
+
+                $('.validation').removeClass('text-danger text-success');
+                $('.validation').addClass($('.has-error').length ? 'text-danger' : 'text-success');
+            });
+
+        });
+    </script>
 </head>
 <%
     AccountBean client = (AccountBean) session.getAttribute("userInfo");
 %>
 <body>
+<jsp:include page="navigation.jsp"></jsp:include>
 <form id="formCharge" action="recharge" method="post">
     <input type="hidden" name="action" value="recharge">
-    <fieldset>
-        <legend>Online Recharge</legend>
-        Recharge account : <%=client.getId()%>
-        <br/><br/>
-        Account name : <%=client.getName()%>
-        <br/><br/>
-        Recharge amount : <input type="number" name="amount" min="500" max="50000"> HKD
-        <br/><br/>
-        Payment Method :
-        <div>
-            <ul style="list-style: none; border: 1">
-                <li>Visa</li>
-                <li>Master</li>
-            </ul>
+    <legend>Online Recharge</legend>
+    Recharge account : <%=client.getId()%>
+    <br/><br/>
+    Account name : <%=client.getName()%>
+    <br/><br/>
+    Recharge amount : <input type="number" name="amount" min="500" max="50000"> HKD
+    <br/><br/>
+    Payment Method :
+    <select>
+        <option selected="selected">Visa</option>
+    </select>
+    <br/><br/>
+
+    <div class="container">
+        <div class="form-group">
+            <label for="cc-number" class="control-label">Card number formatting : </label>
+            <input id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number"
+                   placeholder="•••• •••• •••• ••••" required>
         </div>
-        <input type="submit" value="Recharge">
-    </fieldset>
+        <br/>
+
+        <div class="form-group">
+            <label for="cc-exp" class="control-label">Card expiry formatting : </label>
+            <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp"
+                   placeholder="•• / ••" required>
+        </div>
+        <br/>
+
+        <div class="form-group">
+            <label for="cc-cvc" class="control-label">Card CVC formatting : </label>
+            <input id="cc-cvc" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="•••"
+                   required>
+        </div>
+    </div>
+    <br/>
+    <input type="submit" value="Recharge" />
 </form>
 </body>
 </html>

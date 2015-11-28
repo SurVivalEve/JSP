@@ -1,5 +1,6 @@
 package servlet;
 
+import bean.AccountBean;
 import db.AccountDB;
 
 import javax.servlet.ServletException;
@@ -39,6 +40,7 @@ public class RechargeController extends HttpServlet {
     }
 
     private void doRecharge(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
-
+        String amount = request.getParameter("amount");
+        
     }
 }
