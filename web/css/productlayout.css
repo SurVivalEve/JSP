@@ -18,28 +18,22 @@
     height: 100px;
 }
 
-.c-product li a img {
-    width: 20px;
-    height: 20px;
-}
-
 .c-product li .c-detail {
     width: 215px;
-    height: 250px;
+    height: 270px;
     background: white;
     border: solid gainsboro thin;
 }
 
 .p-search {
-    display: flex;
-    align-content: center;
     width: 100%;
     background: #FFFFFF;
     height: 50px;
+    margin-top: 0px;
+    z-index: 0;
 }
 
 body {
-    background-color: whitesmoke;
     top: 0;
     left: 0;
     right: 0;
@@ -49,12 +43,29 @@ body {
 
 .detail-top{
     padding: 10px;
+    /*background: #F9F6F1;*/
 }
 
 .detail-mid{
     padding: 10px;
+    background: burlywood;
 }
 
 .detail-down{
     padding: 10px;
+    background: cornsilk;
+}
+
+.c-detail a img{
+    width: 30px;
+    height: 30px;
+}
+
+.c-detail input[type="text"]{
+    width: 40px;
+}
+
+#space-control{
+    margin-top: 50px;
+    margin-bottom: 5px;
 }

@@ -79,14 +79,12 @@
 
     <div class="logo">
         <a href="index.jsp"><img src="img/pencil_PNG3860.png" height="100px"></a>
-        <div>
+        <div class="c-client">
             <%
                 try {
                     if (client != null)
-                        out.println("<div><ul>");
-                    out.println("<li>Welcome " + client.getName() + "</li>");
-                    out.println("<li>Account amount " + client.getAmount() + "</li");
-                    out.println("</ul></div>");
+                    out.println("<div> Welcome - " + client.getName() + "</div>");
+                    out.println("<div>Account amount - " + client.getAmount() + "</div>");
                 } catch (NullPointerException ex) {
                     ex.printStackTrace();
                 }

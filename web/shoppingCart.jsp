@@ -11,11 +11,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="css/cart_css.css">
+    <link rel="stylesheet" type="text/css" href="css/cart.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
 </head>
 <body>
 <jsp:include page="navigation.jsp"></jsp:include>
-<hr>
+<div id="space-control"><hr></div>
 <div class="c-table">
     <table>
         <tr>
