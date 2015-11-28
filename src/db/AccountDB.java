@@ -4,6 +4,7 @@ import bean.AccountBean;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -164,4 +165,39 @@ public class AccountDB {
         return ab;
     }
 
+    public ArrayList<AccountBean> queryAccount() {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        ArrayList<AccountBean> abs = new ArrayList<AccountBean>();
+        try{
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM category";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            while(rs.next()){
+                AccountBean ab = new AccountBean();
+                ab.setId(rs.getString("id"));
+                ab.setPassword(rs.getString("password"));
+                ab.setUserType(rs.getString("userType"));
+                ab.setName(rs.getString("name"));
+                ab.setAmount(rs.getInt("amount"));
+                ab.setTel(rs.getString("tel"));
+                ab.setAddress(rs.getString("address"));
+                ab.setBounsPoint(rs.getInt("bounsPoint"));
+                ab.setValidation(rs.getString("validation"));
+                abs.add(ab);
+            }
+            pStmnt.close();
+            cnnct.close();
+        }catch(SQLException ex) {
+            while(ex != null){
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        }catch(IOException ex) {
+            ex.printStackTrace();
+        }
+        return abs;
+    }
 }
