@@ -14,20 +14,6 @@
     <script src="js/jquery.payment.js"></script>
     <link rel="stylesheet" type="text/css" href="css/recharge.css">
 
-    <style type="text/css" media="screen">
-        .has-error input {
-            border-width: 2px;
-        }
-
-        .validation.text-danger:after {
-            content: 'Validation failed';
-        }
-
-        .validation.text-success:after {
-            content: 'Validation passed';
-        }
-    </style>
-
     <script>
         jQuery(function ($) {
             $('.cc-number').payment('formatCardNumber');
@@ -60,7 +46,7 @@
 %>
 <body>
 <jsp:include page="navigation.jsp"></jsp:include>
-<form id="formCharge" action="recharge" method="post">
+<form action="recharge" method="post">
     <input type="hidden" name="action" value="recharge">
     <legend>Online Recharge</legend>
     Recharge account : <%=client.getId()%>
@@ -95,9 +81,9 @@
             <input id="cc-cvc" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="•••"
                    required>
         </div>
+        <br/>
     </div>
-    <br/>
-    <input type="submit" value="Recharge" />
+    <input type="submit" value="Recharge"/>
 </form>
 </body>
 </html>

@@ -135,11 +135,11 @@ public class AccountDB {
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "UPDATE account SET id = ? , amount = ? WHERE id = ? ";
+            AccountBean client = queryByAmount(id);
+            String preQueryStatement = "UPDATE account SET amount = ? WHERE id = ? ";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
-            pStmnt.setString(1,id);
-            pStmnt.setInt(2,amount);
-            pStmnt.setString(3,id);
+            pStmnt.setInt(1,client.getAmount()+amount);
+            pStmnt.setString(2,id);
             int rowCount = pStmnt.executeUpdate();
             if(rowCount >= 1) {
                 isSuccess = true;
@@ -194,13 +194,49 @@ public class AccountDB {
         return ab;
     }
 
+    public AccountBean queryByAmount(String id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        AccountBean ab = null;
+        try{
+            connection = getConnection();
+            String preQueryStatement = "SELECT * FROM account WHERE id=?";
+            preparedStatement = connection.prepareStatement(preQueryStatement);
+            preparedStatement.setString(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                ab = new AccountBean();
+                ab.setId(rs.getString("id"));
+                ab.setPassword(rs.getString("password"));
+                ab.setUserType(rs.getString("userType"));
+                ab.setName(rs.getString("name"));
+                ab.setAmount(rs.getInt("amount"));
+                ab.setTel(rs.getString("tel"));
+                ab.setAddress(rs.getString("address"));
+                ab.setBounsPoint(rs.getInt("bounsPoint"));
+                ab.setValidation(rs.getString("validation"));
+            }
+            preparedStatement.close();
+            connection.close();
+        }catch(SQLException ex) {
+            while(ex != null){
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        }catch(IOException ex) {
+            ex.printStackTrace();
+        }
+        return ab;
+    }
+
     public ArrayList<AccountBean> queryAccount() {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         ArrayList<AccountBean> abs = new ArrayList<AccountBean>();
         try{
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM category";
+            String preQueryStatement = "SELECT * FROM account";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             ResultSet rs = null;
             rs = pStmnt.executeQuery();
