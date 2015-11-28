@@ -83,7 +83,7 @@ public class LoginController extends HttpServlet {
 
     private void doLogin(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
-        String targetURL = "login.jsp";
+        String targetURL = "index.jsp";
         RequestDispatcher rd;
         rd = getServletContext().getRequestDispatcher("/" + targetURL);
         rd.forward(req,res);

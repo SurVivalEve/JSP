@@ -1,3 +1,4 @@
+<%@ page import="bean.AccountBean" %>
 <%--
   Created by IntelliJ IDEA.
   User: Sur.Vival
@@ -8,6 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -50,6 +52,7 @@
     <form method="post" action="loginCheck" id="l-sub">
         <div id="login-content">
             <input type="hidden" name="action" value="authenticate"/>
+
             <div id="l-top">
                 WELCOME
             </div>
@@ -79,7 +82,7 @@
     </div>
     <div class="nav-btn">
         <div class="a-logout">
-            <img src="img/mobile_interface-01-512.png">
+            <a href="loginCheck?action=logout"> <img src="img/mobile_interface-01-512.png"> </a>
         </div>
         <div class="left-side">
             <ul>
@@ -90,6 +93,20 @@
                 <li>Test 1</li>
             </ul>
         </div>
+        <div>
+            <%
+                try {
+                    AccountBean client = (AccountBean) session.getAttribute("userInfo");
+                    if (client != null) {
+                        out.print("<h4>Welcome " + client.getName() + " </h4>");
+                    } else {
+                    }
+                } catch (NullPointerException ex) {
+                    ex.printStackTrace();
+                }
+            %>
+        </div>
+
         <div class="right-side">
             <button onclick="loginOverlay();">Login</button>
             <button onclick="overLay('register.jsp')">Register</button>
