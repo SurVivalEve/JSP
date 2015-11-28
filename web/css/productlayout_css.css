@@ -23,7 +23,7 @@
     height: 20px;
 }
 
-.c-product li div {
+.c-product li .c-detail {
     width: 215px;
     height: 250px;
     background: white;
@@ -45,4 +45,16 @@ body {
     right: 0;
     margin: 0;
     position: absolute;
+}
+
+.detail-top{
+    padding: 10px;
+}
+
+.detail-mid{
+    padding: 10px;
+}
+
+.detail-down{
+    padding: 10px;
 }

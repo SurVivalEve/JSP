@@ -65,6 +65,16 @@
     align-content: center;
 }
 
+.logined-details li {
+    display: inline;
+    list-style: none;
+    margin-right: 5%;
+    color: darkorange;
+    width: auto;
+    height: auto;
+    align-content: center;
+}
+
 .c-main {
     display: flex;
 }
@@ -165,8 +175,13 @@ body {
     justify-content: center;
 }
 
-.a-logout img {
+.a-logout a {
     width: 25%;
+    height: 100%;
+}
+
+.a-logout img {
+    width: 100%;
     height: 100%;
 }
 

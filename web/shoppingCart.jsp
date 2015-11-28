@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="css/cart_css.css">
 </head>
 <body>
+<jsp:include page="navigation.jsp"></jsp:include>
 <hr>
 <div class="c-table">
     <table>
