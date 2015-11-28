@@ -56,13 +56,13 @@ public class LoginController extends HttpServlet {
                 HttpSession clientSession = req.getSession(true);
                 AccountBean client = db.queryByID(id);
                 clientSession.setAttribute("userInfo", client);
+                targetURL = "/index.jsp";
             } else {
                 HttpSession adminSession = req.getSession(true);
                 AccountBean admin = db.queryByID(id);
                 adminSession.setAttribute("adminInfo",admin);
+                targetURL = "/manager.jsp";
             }
-            // store the userInfo to the session
-            targetURL = "/index.jsp";
         } else {
             targetURL = "/loginError.jsp";
         }
