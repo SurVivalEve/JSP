@@ -32,11 +32,15 @@ public class VerifyClientController  extends HttpServlet {
         if("verify".equalsIgnoreCase(req.getParameter("action")))
             req.setAttribute("accounts", accounts);
         if("save".equalsIgnoreCase(req.getParameter("action"))) {
-            String[] validationID = req.getParameterValues("ValidationID");
-            if(db.verifyAccount(validationID))
-                req.setAttribute("update", "Y");
-            else
-                req.setAttribute("update", "N");
+            if(req.getParameter("ValidationID")!=null) {
+                String[] validationID = req.getParameterValues("ValidationID");
+                if (db.verifyAccount(validationID))
+                    req.setAttribute("update", "Y");
+                else
+                    req.setAttribute("update", "N");
+            } else {
+                req.setAttribute("update", "NoSelectedItem");
+            }
         }
         RequestDispatcher rd;
         rd = getServletContext().getRequestDispatcher("/m_client.jsp");
