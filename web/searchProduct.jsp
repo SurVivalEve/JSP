@@ -73,10 +73,10 @@
                                 "            <div class=\"c-detail\">\n" +
                                 "                <div class=\"detail-top\">" + "<img src=\"" + pb.get(i).getPicturePath() + "\"" + ">" + "</div>\n" +
                                 "                <div class=\"detail-mid\">" + pb.get(i).getName() + "</div>\n" +
-                                "                <div class=\"detail-qty\">Qty:<input type=\"text\" name=\"qty[]\" value=\"1\"></div>\n" +
-                                "                <div class=\"detail-id\"><input type=\"hidden\" name=\"id[]\" value=\"" + pb.get(i).getProductID() + "\"></div>\n" +
+                                "                <div class=\"detail-qty\">Qty:<input type=\"text\" name=\"qty\" value=\"1\"></div>\n" +
+                                "                <div class=\"detail-id\"><input type=\"hidden\" name=\"itemID\" value=\"" + pb.get(i).getProductID() + "\"></div>\n" +
                                 "                <div class=\"detail-down\">" + "$" + pb.get(i).getPrice() + "</div>\n" +
-                                "                <div><a><img src=\"img/buy-xxl.png\" width=\"50px\" height=\"50px\"></a></div>\n" +
+                                "                <div><a href=\"ShoppingCart?action=add\"><img src=\"img/buy-xxl.png\" width=\"50px\" height=\"50px\"></a></div>\n" +
                                 "            </div>\n" +
                                 "        </li>");
                     }
