@@ -37,14 +37,21 @@
                         <option selected disabled hidden value=''></option>
                         <%
                             for (int i = 0; i < cb.size(); i++) {
-                                out.println("<option value=\"" + cb.get(i).getCategoryID()+ "\">" + cb.get(i).getName() + "</option>");
+                                out.println("<option value=\"" + cb.get(i).getCategoryID() + "\">" + cb.get(i).getName() + "</option>");
                             }
                         %>
                     </select>
                 </div>
                 <div class="c-range">
-                    $Min:<input type="text" name="minPrice">
-                    $Max:<input type="text" name="maxPrice">
+                    Price Range:<select name="range">
+                    <option selected disabled hidden value=''></option>
+                    <option value="between 1 and 500">1 ~ 500</option>
+                    <option value="between 501 and 1000">501 ~ 1000</option>
+                    <option value="between 1001 and 1500">1001 ~ 1500</option>
+                    <option value="between 1501 and 2000">1501 ~ 2000</option>
+                    <option value=">2000">above 2000</option>
+
+                </select>
                 </div>
                 <div>
                     <a>
@@ -55,7 +62,9 @@
                 </div>
             </div>
         </form>
-        <div class="a-clear"><a href="ProductList?action=all"><button>Show All</button></a></div>
+        <div class="a-clear"><a href="ProductList?action=all">
+            <button>Show All</button>
+        </a></div>
         <div class="c-product">
             <ul>
                 <%

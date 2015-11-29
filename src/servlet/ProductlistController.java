@@ -40,9 +40,18 @@ public class ProductlistController extends HttpServlet {
         if ("all".equals(action)) {
             showAll(req, res);
         } else if ("search".equals(action)) {
-            if(!(req.getParameter("selectedType").equals("")) && req.getParameter("selectedType") !=null ){
-                searchFunction1(req,res);
-            }
+
+            if (req.getParameter("selectedType") != null && req.getParameter("range") != null) {
+                //if(!(req.getParameter("selectedType").equals("")) && !(req.getParameter("range").equals(""))){
+                    searchFunction3(req,res);
+                //}
+            } else if (req.getParameter("selectedType") != null) {
+                if (!(req.getParameter("selectedType").equals(""))) {
+                    searchFunction1(req, res);
+                }
+            } else if (req.getParameter("selectedType") == null && req.getParameter("range") != null)
+                if (!(req.getParameter("range").equals("")))
+                    searchFunction2(req, res);
         }
     }
 
@@ -69,7 +78,7 @@ public class ProductlistController extends HttpServlet {
     private void searchFunction2(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         ArrayList<CategoryBean> cbArrayList = cb.queryCategory();
         req.setAttribute("cbArrayList", cbArrayList);
-        ArrayList<ProductBean> pbArrayList = db.queryByRange(500,2000);
+        ArrayList<ProductBean> pbArrayList = db.queryByRange(req.getParameter("range"));
         req.setAttribute("pbArrayList", pbArrayList);
         RequestDispatcher rd;
         rd = getServletContext().getRequestDispatcher("/searchProduct.jsp");
@@ -79,7 +88,7 @@ public class ProductlistController extends HttpServlet {
     private void searchFunction3(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         ArrayList<CategoryBean> cbArrayList = cb.queryCategory();
         req.setAttribute("cbArrayList", cbArrayList);
-        ArrayList<ProductBean> pbArrayList = db.queryByCategory(req.getParameter("selectedType"));
+        ArrayList<ProductBean> pbArrayList = db.queryForS3(req.getParameter("selectedType"),req.getParameter("range"));
         req.setAttribute("pbArrayList", pbArrayList);
         RequestDispatcher rd;
         rd = getServletContext().getRequestDispatcher("/searchProduct.jsp");

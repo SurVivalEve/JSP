@@ -15,7 +15,7 @@ public class ProductDB {
     private String dbUser = "";
     private String dbPassword = "";
 
-    public ProductDB(String dburl, String dbUser, String dbPassword){
+    public ProductDB(String dburl, String dbUser, String dbPassword) {
         this.dburl = dburl;
         this.dbUser = dbUser;
         this.dbPassword = dbPassword;
@@ -30,11 +30,11 @@ public class ProductDB {
         return DriverManager.getConnection(dburl, dbUser, dbPassword);
     }
 
-    public boolean addRecord(String productID, String name, String description, String categoryID, int price, String picturePath){
+    public boolean addRecord(String productID, String name, String description, String categoryID, int price, String picturePath) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatement = "INSERT INTO product VALUES (?,?,?,?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
@@ -45,13 +45,13 @@ public class ProductDB {
             pStmnt.setInt(5, price);
             pStmnt.setString(6, picturePath);
             int rowCount = pStmnt.executeUpdate();
-            if (rowCount>=1){
+            if (rowCount >= 1) {
                 isSuccess = true;
             }
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -61,23 +61,23 @@ public class ProductDB {
         return isSuccess;
     }
 
-    public ProductBean queryByID(String productID){
+    public ProductBean queryByID(String productID) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         ProductBean pb = null;
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatement = "SELECT * FROM product WHERE productID=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, productID);
             ResultSet rs = null;
             rs = pStmnt.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 pb = new ProductBean();
                 pb.setProductID(productID);
                 pb.setName(rs.getString("name"));
                 pb.setDescriptions(rs.getString("descriptions"));
-                CategoryDB cateDB = new CategoryDB(dburl,dbUser,dbPassword);
+                CategoryDB cateDB = new CategoryDB(dburl, dbUser, dbPassword);
                 pb.setCategoryID(cateDB.queryByID(rs.getString("categoryID")));
                 pb.setPrice(rs.getInt("price"));
                 pb.setPicturePath(rs.getString("picturePath"));
@@ -85,7 +85,7 @@ public class ProductDB {
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -95,22 +95,22 @@ public class ProductDB {
         return pb;
     }
 
-    public ArrayList<ProductBean> qeuryProduct(){
+    public ArrayList<ProductBean> qeuryProduct() {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
 
         ArrayList<ProductBean> pbs = new ArrayList<ProductBean>();
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatement = "SELECT * FROM product";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             ResultSet rs = pStmnt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 ProductBean pb = new ProductBean();
                 pb.setProductID(rs.getString("productID"));
                 pb.setName(rs.getString("name"));
                 pb.setDescriptions(rs.getString("descriptions"));
-                CategoryDB cateDB = new CategoryDB(dburl,dbUser,dbPassword);
+                CategoryDB cateDB = new CategoryDB(dburl, dbUser, dbPassword);
                 pb.setCategoryID(cateDB.queryByID(rs.getString("categoryID")));
                 pb.setPrice(rs.getInt("price"));
                 pb.setPicturePath(rs.getString("picturePath"));
@@ -119,7 +119,7 @@ public class ProductDB {
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -129,22 +129,22 @@ public class ProductDB {
         return pbs;
     }
 
-    public boolean delRecord(String productID){
+    public boolean delRecord(String productID) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatement = "DELETE FROM product WHERE productID=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, productID);
-            if (pStmnt.execute()){
+            if (pStmnt.execute()) {
                 isSuccess = true;
             }
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -154,11 +154,11 @@ public class ProductDB {
         return isSuccess;
     }
 
-    public boolean editRecord(ProductBean pb){
+    public boolean editRecord(ProductBean pb) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatement = "UPDATE product SET name=?,descriptions=?,categoryID=?,price=?,picturePath=? WHERE productID=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
@@ -168,13 +168,13 @@ public class ProductDB {
             pStmnt.setInt(4, pb.getPrice());
             pStmnt.setString(5, pb.getPicturePath());
             pStmnt.setString(6, pb.getProductID());
-            if (pStmnt.execute()){
+            if (pStmnt.execute()) {
                 isSuccess = true;
             }
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -184,23 +184,23 @@ public class ProductDB {
         return isSuccess;
     }
 
-    public ArrayList<ProductBean> queryByCategory(String cid){
+    public ArrayList<ProductBean> queryByCategory(String cid) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
 
         ArrayList<ProductBean> pbs = new ArrayList<ProductBean>();
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatement = "SELECT * FROM product WHERE categoryID=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, cid);
             ResultSet rs = pStmnt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 ProductBean pb = new ProductBean();
                 pb.setProductID(rs.getString("productID"));
                 pb.setName(rs.getString("name"));
                 pb.setDescriptions(rs.getString("descriptions"));
-                CategoryDB cateDB = new CategoryDB(dburl,dbUser,dbPassword);
+                CategoryDB cateDB = new CategoryDB(dburl, dbUser, dbPassword);
                 pb.setCategoryID(cateDB.queryByID(rs.getString("categoryID")));
                 pb.setPrice(rs.getInt("price"));
                 pb.setPicturePath(rs.getString("picturePath"));
@@ -209,7 +209,7 @@ public class ProductDB {
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -219,24 +219,24 @@ public class ProductDB {
         return pbs;
     }
 
-    public ArrayList<ProductBean> queryByRange(int min, int max){
+    public ArrayList<ProductBean> queryByRange(String sq) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
+        String sql = "SELECT * FROM product WHERE price ";
 
         ArrayList<ProductBean> pbs = new ArrayList<ProductBean>();
-        try{
+        try {
+            sql += sq;
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM product WHERE price BETWEEN ? and ?";
+            String preQueryStatement = sql;
             pStmnt = cnnct.prepareStatement(preQueryStatement);
-            pStmnt.setInt(1, min);
-            pStmnt.setInt(2, max);
             ResultSet rs = pStmnt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 ProductBean pb = new ProductBean();
                 pb.setProductID(rs.getString("productID"));
                 pb.setName(rs.getString("name"));
                 pb.setDescriptions(rs.getString("descriptions"));
-                CategoryDB cateDB = new CategoryDB(dburl,dbUser,dbPassword);
+                CategoryDB cateDB = new CategoryDB(dburl, dbUser, dbPassword);
                 pb.setCategoryID(cateDB.queryByID(rs.getString("categoryID")));
                 pb.setPrice(rs.getInt("price"));
                 pb.setPicturePath(rs.getString("picturePath"));
@@ -245,7 +245,7 @@ public class ProductDB {
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -255,7 +255,40 @@ public class ProductDB {
         return pbs;
     }
 
-
+    public ArrayList<ProductBean> queryForS3(String type, String sq) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        String sql = "SELECT * FROM product WHERE categoryID=";
+        ArrayList<ProductBean> pbs = new ArrayList<ProductBean>();
+        try {
+            sql = sql + "'" + type + "'" + "AND price " + sq;
+            cnnct = getConnection();
+            String preQueryStatement = sql;
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            ResultSet rs = pStmnt.executeQuery();
+            while (rs.next()) {
+                ProductBean pb = new ProductBean();
+                pb.setProductID(rs.getString("productID"));
+                pb.setName(rs.getString("name"));
+                pb.setDescriptions(rs.getString("descriptions"));
+                CategoryDB cateDB = new CategoryDB(dburl, dbUser, dbPassword);
+                pb.setCategoryID(cateDB.queryByID(rs.getString("categoryID")));
+                pb.setPrice(rs.getInt("price"));
+                pb.setPicturePath(rs.getString("picturePath"));
+                pbs.add(pb);
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return pbs;
+    }
 
 
 }
