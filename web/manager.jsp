@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </a>
-            <a href="m_product.jsp">
+            <a href="m_product?action=maintain">
                 <div class="item_div" id="item_product">
                     <div class="item_border">
                         <div class="item_word_border">

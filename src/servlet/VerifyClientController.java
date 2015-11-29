@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet(name = "VerifyClientController", urlPatterns = {"/m_client"})
-public class VerifyClientController  extends HttpServlet {
+public class VerifyClientController extends HttpServlet {
     AccountDB db;
 
     public void init() throws ServletException {

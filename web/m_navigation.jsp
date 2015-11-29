@@ -24,7 +24,7 @@
                         <div class="nav_word">Client</div>
                     </li>
                 </a>
-                <a href="m_product.jsp">
+                <a href="m_product?action=maintain">
                     <li class="tabs pageActive tab_other" id="product">
                         <div class="nav_word">Product</div>
                     </li>
