@@ -186,6 +186,38 @@ public class AccountDB {
         return isSuccess;
     }
 
+    public boolean updatePersonalDetails(String id, String name, String tel, String address, String password) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        boolean isSuccess = false;
+        try {
+            cnnct = getConnection();
+            AccountBean client = queryByID(id);
+            String preQueryStatement = "UPDATE account SET name = ? , tel = ? , address = ? ,  password = ? WHERE id = ? ";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1,name);
+            pStmnt.setString(2,tel);
+            pStmnt.setString(3,address);
+            pStmnt.setString(4,password);
+            pStmnt.setString(5,id);
+            int rowCount = pStmnt.executeUpdate();
+            if(rowCount >= 1) {
+                isSuccess = true;
+            }
+            pStmnt.close();
+            cnnct.close();
+
+        } catch (SQLException ex) {
+            while(ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
+
     public AccountBean queryByID(String id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;

@@ -36,3 +36,30 @@
     width: 102%;
     height: 77%;
 }
+
+/* Personal Details */
+
+
+.Data-Content {
+    width: 100%; /* 表單寬度 */
+    line-height: 40px;
+}
+
+.Data-Title {
+    float: left;
+    width: 10%;
+    margin-right: 0px;
+}
+
+.Data-Items {
+    float: left;
+    width: 25%;
+}
+
+.AlignRight {
+    text-align: right;
+}
+
+.Data-Items input {
+    margin: 3%;
+}

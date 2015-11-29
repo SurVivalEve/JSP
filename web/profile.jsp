@@ -1,3 +1,4 @@
+<%@ page import="bean.AccountBean" %>
 <%--
   Created by IntelliJ IDEA.
   User: Sur.Vival
@@ -17,6 +18,12 @@
 <head>
 </head>
 <body>
+<%
+    AccountBean client = (AccountBean) session.getAttribute("userInfo");
+    if(client==null)
+        throw new NullPointerException();
+%>
+<%@page errorPage="notLoggedInYet.jsp" %>
 <script>
     function show(location) {
         document.getElementById("myIframe").src = location;
@@ -38,7 +45,7 @@
 </div>
 
 <div id="footer">
-    Copyright
+    Stationery Station
 </div>
 
 </body>
