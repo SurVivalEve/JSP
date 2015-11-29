@@ -218,4 +218,44 @@ public class ProductDB {
         }
         return pbs;
     }
+
+    public ArrayList<ProductBean> queryByRange(int min, int max){
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+
+        ArrayList<ProductBean> pbs = new ArrayList<ProductBean>();
+        try{
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM product WHERE price BETWEEN ? and ?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setInt(1, min);
+            pStmnt.setInt(2, max);
+            ResultSet rs = pStmnt.executeQuery();
+            while(rs.next()){
+                ProductBean pb = new ProductBean();
+                pb.setProductID(rs.getString("productID"));
+                pb.setName(rs.getString("name"));
+                pb.setDescriptions(rs.getString("descriptions"));
+                CategoryDB cateDB = new CategoryDB(dburl,dbUser,dbPassword);
+                pb.setCategoryID(cateDB.queryByID(rs.getString("categoryID")));
+                pb.setPrice(rs.getInt("price"));
+                pb.setPicturePath(rs.getString("picturePath"));
+                pbs.add(pb);
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null){
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return pbs;
+    }
+
+
+
+
 }

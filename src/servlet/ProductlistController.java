@@ -40,10 +40,10 @@ public class ProductlistController extends HttpServlet {
         if ("all".equals(action)) {
             showAll(req, res);
         } else if ("search".equals(action)) {
-            searchFunction(req, res);
+            if(!(req.getParameter("selectedType").equals("")) && req.getParameter("selectedType") !=null ){
+                searchFunction1(req,res);
+            }
         }
-        //searchFunction(req,res);
-        //showAll(req,res);
     }
 
     private void showAll(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -56,7 +56,27 @@ public class ProductlistController extends HttpServlet {
         rd.forward(req, res);
     }
 
-    private void searchFunction(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    private void searchFunction1(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        ArrayList<CategoryBean> cbArrayList = cb.queryCategory();
+        req.setAttribute("cbArrayList", cbArrayList);
+        ArrayList<ProductBean> pbArrayList = db.queryByCategory(req.getParameter("selectedType"));
+        req.setAttribute("pbArrayList", pbArrayList);
+        RequestDispatcher rd;
+        rd = getServletContext().getRequestDispatcher("/searchProduct.jsp");
+        rd.forward(req, res);
+    }
+
+    private void searchFunction2(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        ArrayList<CategoryBean> cbArrayList = cb.queryCategory();
+        req.setAttribute("cbArrayList", cbArrayList);
+        ArrayList<ProductBean> pbArrayList = db.queryByRange(500,2000);
+        req.setAttribute("pbArrayList", pbArrayList);
+        RequestDispatcher rd;
+        rd = getServletContext().getRequestDispatcher("/searchProduct.jsp");
+        rd.forward(req, res);
+    }
+
+    private void searchFunction3(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         ArrayList<CategoryBean> cbArrayList = cb.queryCategory();
         req.setAttribute("cbArrayList", cbArrayList);
         ArrayList<ProductBean> pbArrayList = db.queryByCategory(req.getParameter("selectedType"));
