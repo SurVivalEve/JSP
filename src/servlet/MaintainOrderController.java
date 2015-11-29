@@ -41,6 +41,14 @@ public class MaintainOrderController extends HttpServlet {
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/m_order.jsp");
             rd.forward(req,res);
+        } else if("save".equalsIgnoreCase(req.getParameter("action"))) {
+            if(req.getParameter("status")!=null && req.getParameter("orderID")!=null){
+                String[] status = req.getParameterValues("status");
+                String[] orderID = req.getParameterValues("orderID");
+                ordersDB.editStatus(status,orderID);
+            }
+            req.setAttribute("orders", orders);
+            res.sendRedirect("m_order?action=maintain");
         } else {
             PrintWriter out = res.getWriter();
             out.println("No such action!!!");

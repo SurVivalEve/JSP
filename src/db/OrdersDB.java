@@ -235,6 +235,39 @@ public class OrdersDB {
         return isSuccess;
     }
 
+    public boolean editStatus(String[] status, String[] orderID) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        boolean isSuccess = false;
+        try {
+            cnnct = getConnection();
+            //update orders table
+            String preQueryStatement;
+            for(int i=0; i<status.length; i++) {
+                preQueryStatement = "UPDATE orders SET status=?, cancelled=? WHERE orderID=?";
+                pStmnt = cnnct.prepareStatement(preQueryStatement);
+                pStmnt.setString(1, status[i]);
+                if (status[i].equalsIgnoreCase("Cancel"))
+                    pStmnt.setString(2, "Y");
+                else
+                    pStmnt.setString(2, "N");
+                pStmnt.setString(3, orderID[i]);
+                pStmnt.execute();
+            }
+            isSuccess = true;
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
+
     public boolean editRecord(OrdersBean ob) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;

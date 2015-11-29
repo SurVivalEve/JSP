@@ -18,11 +18,6 @@ body {
     z-index: 100;
 }
 
-#message{
-    max-width: 1000px;
-    margin-top: 125px;
-}
-
 .SITE_STRUCTURE {
     max-width: 980px;
     min-width: 365px;
@@ -30,7 +25,7 @@ body {
 }
 
 h1, h2 {
-    font-size: 18px;
+    font-size: 30px;
     font-style: normal;
     font-weight: 400;
     font-family: 'Microsoft JhengHei UI','Microsoft JhengHei', 微軟正黑體, 微软正黑体, Gothic, MingLiU_HKSCS, sans-serif;
@@ -251,6 +246,15 @@ p {
 }
 
 #message {
+    max-width: 1000px;
+    width: 1000px ;
+    margin-top: auto;
+    margin-left: auto ;
+    margin-right: auto ;
+}
+
+#message2 {
+    max-width: 1000px;
     width: 1000px ;
     margin-top: auto;
     margin-left: auto ;
@@ -283,6 +287,16 @@ p {
 .select_main {
     max-width: 1000px;
     margin-top: 125px;
+}
+
+#update_order {
+    max-width: 1000px;
+    margin-top: -30px;
+}
+
+#obtain_report {
+    max-width: 1000px;
+    margin-top: -30px;
 }
 
 .maintain_client {
@@ -320,12 +334,33 @@ p {
     padding: 20px;
 }
 
+.item_div2 {
+    float: left;
+    width: 100%;
+    max-width: 33.33%;
+    height: 250px;
+    padding: 25px;
+    overflow: hidden;
+    margin-left: 110px;
+}
+
+.item_div2:hover {
+    padding: 20px;
+}
+
 .item_word_border {
     position: relative;
     margin: 0px 5px;
 }
 
 .item_word {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    margin-top: -20px;
+}
+
+.item_word2 {
     position: absolute;
     width: 100%;
     text-align: center;
@@ -346,7 +381,27 @@ p {
     margin-top: 0px;
 }
 
+.item_word2 #sp{
+    font-family: 微軟正黑體, Gothic, Helvetica, "Microsoft JhengHei",
+    微软正黑体, sans-serif;
+    margin-top: 35px;
+}
+
+.item_word2 h2 {
+    font-family: 微軟正黑體, Gothic, Helvetica, "Microsoft JhengHei",
+    微软正黑体, sans-serif;
+}
+
 .item_word h2, .item_word p {
+    -webkit-transform: translateY(50px);
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    -webkit-perspective: 1000;
+    -webkit-backface-visibility: hidden;
+    transform: translateY(50px);
+    transition: opacity 0.2s, transform 0.3s;
+}
+
+.item_word2 h2, .item_word2 p {
     -webkit-transform: translateY(50px);
     -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
     -webkit-perspective: 1000;

@@ -64,10 +64,10 @@
                             out.println("<td><input type='checkbox' class='checkbox1' name='ValidationID' value='"+abs.get(i).getId()+"'/></td>");
                         }
                         out.println("</table>");
-                        out.println("<div id='btn'>");
+                        out.println("<p><div id='btn'>");
                             out.println("<input class='myButton' type='submit' value='Save'/>");
                             out.println("<input class='myButton' type='reset' value='Cancel'/>");
-                        out.println("</div>");
+                        out.println("</div></p>");
                     } else {
                         out.println("<h1>No account is waited for verify.</h1>");
                     }
