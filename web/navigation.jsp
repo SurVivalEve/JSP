@@ -101,7 +101,7 @@
             <%
                 try {
                     if (client != null)
-                        out.println("<div> Welcome - " + client.getName() + "</div>");
+                        out.println("<div>Welcome - <a href=\"profile.jsp\">" + client.getName() + "</a></div>");
                         out.println("<div>Account amount - " + newClient.getAmount() + "</div>");
                         out.println("<div>Bouns Point - " + newClient.getBounsPoint() + "</div>");
                 } catch (NullPointerException ex) {

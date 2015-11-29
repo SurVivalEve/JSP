@@ -1,0 +1,38 @@
+#header {
+    color: #FFF;
+    text-align: center;
+    background-color: black;
+    padding: 5px;
+}
+#nav {
+    line-height: 30px;
+    background-color: #EEE;
+    height: 78%;
+    width: 11%;
+    float: left;
+    padding: 10px;
+}
+
+#nav a {
+    text-decoration: none;
+    color: black;
+}
+
+#section {
+    width: 85%;
+    float: left;
+    padding: 10px;
+}
+#footer {
+    background-color: #000;
+    color: #FFF;
+    clear: both;
+    text-align: center;
+    padding: 7px;
+    height: 32px;
+}
+
+#myIframe {
+    width: 102%;
+    height: 77%;
+}

@@ -1,3 +1,4 @@
+<%@ page import="bean.AccountBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,6 +15,12 @@
     </script>
 </head>
 <body>
+<%
+    AccountBean ab = (AccountBean) session.getAttribute("adminInfo");
+    if(ab == null) {
+        response.sendRedirect("notLoggedInYet.jsp");
+    }
+%>
 <jsp:include page="m_navigation.jsp" />
 <div id="content" class="SITE_STRUCTURE">
     <div style="display: block;" class="tabs_item" id="select_main">

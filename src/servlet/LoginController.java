@@ -77,6 +77,8 @@ public class LoginController extends HttpServlet {
         // get the UserInfo from session
         if(session.getAttribute("userInfo") != null) {
             result = true;
+        }else if (session.getAttribute("adminInfo") != null) {
+            result = true;
         }
         return result;
     }
