@@ -102,6 +102,7 @@ public class OrdersDB {
                 AccountBean ab = accountDB.queryByID(rs.getString("clientID"));
                 ob.setClient(ab);
 
+                ob.setOrderDate(new java.util.Date(rs.getTimestamp("orderDate").getTime()));
                 ob.setStatus(rs.getString("status"));
                 ob.setTotalAmount(rs.getInt("totalAmount"));
                 ob.setDeliveryAddress(rs.getString("deliveryAddress"));
@@ -162,6 +163,7 @@ public class OrdersDB {
                 AccountBean ab = accountDB.queryByID(rs.getString("clientID"));
                 ob.setClient(ab);
 
+                ob.setOrderDate(new java.util.Date(rs.getTimestamp("orderDate").getTime()));
                 ob.setStatus(rs.getString("status"));
                 ob.setTotalAmount(rs.getInt("totalAmount"));
                 ob.setDeliveryAddress(rs.getString("deliveryAddress"));

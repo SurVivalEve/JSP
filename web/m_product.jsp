@@ -75,7 +75,7 @@
                     <tr><td class="edit">Description:</td><td class="edit"><input type="text" name="description"/></td></tr>
                     <tr><td class="edit">Price:</td><td class="edit"><input type="text" id="price2" name="price"/></td></tr>
                     <tr><td colspan="2"><input class="myButton" style="display: block; width: 100%;" type="submit" onclick='return confirm("Are you sure?")' value="Create"/></td></tr>
-                    <tr><td colspan="2"><input class="myButton"  style="display: block; width: 100%;" type="button" onclick="showMessage()" value="Cancel"/></td></tr>
+                    <tr><td colspan="2"><input class="myButton" style="display: block; width: 100%;" type="button" onclick="showMessage()" value="Cancel"/></td></tr>
                 </table>
             </form>
         </div>
@@ -94,6 +94,7 @@
             </form>
         </div>
         <div id="message">
+            <h1 align="center">Product List</h1>
             <%
                 ArrayList<ProductBean> pbs = new ArrayList<ProductBean>();
                 if(request.getAttribute("products")!=null){
@@ -104,7 +105,7 @@
                         out.println("<colgroup><col style='width:7%'><col style='width:20%'><col style='width:15'><col style='width:12%'>");
                         out.println("<col style='width:25%'><col style='width:7%'><col style='width:7%'><col style='width:7%'></colgroup>");
                         out.println("<tr><th>ID</th><th>Picture</th><th>Name</th><th>Category</th><th>Description</th><th>Price</th>");
-                        out.println("<th colspan='2'><a onclick='showAddMessage()'><img src='img/b_drop.png'/>Add product</a></th></tr>");
+                        out.println("<th colspan='2'><a onclick='showAddMessage()'><img src='img/b_snewtbl.png'/>Add product</a></th></tr>");
                         for(int i=0; i<pbs.size(); i++) {
                             out.println("<tr><td>" + pbs.get(i).getProductID() + "</td>");
                             out.println("<td>" + pbs.get(i).getPicturePath() + "</td>");

@@ -7,11 +7,12 @@ public class OrdersBean {
     private String orderID;
     private AccountBean client;
     private ArrayList<ProductBean> products;
+    private Date orderDate;
     private String status;
+    private int totalAmount;
     private String deliveryAddress;
     private Date pickupTime;
     private boolean cancelled;
-    private int totalAmount;
 
     public OrdersBean() {
     }
@@ -78,5 +79,13 @@ public class OrdersBean {
 
     public int getTotalAmount(){
         return totalAmount;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 }

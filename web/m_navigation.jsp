@@ -29,7 +29,7 @@
                         <div class="nav_word">Product</div>
                     </li>
                 </a>
-                <a href="m_order.jsp">
+                <a href="m_order?action=maintain">
                     <li class="tabs pageActive tab_other" id="order">
                         <div class="nav_word">Order</div>
                     </li>

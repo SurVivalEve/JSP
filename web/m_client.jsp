@@ -44,6 +44,7 @@
 <div id="content" class="SITE_STRUCTURE content">
     <div style="display: block;" class="tabs_item" id="select_main">
         <div id="message">
+            <h1 align="center">Non-verify Account</h1>
             <%
                 ArrayList<AccountBean> abs = new ArrayList<AccountBean>();
                 if(request.getAttribute("accounts")!=null){

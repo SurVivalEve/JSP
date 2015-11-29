@@ -43,6 +43,12 @@ public class MaintainProductController extends HttpServlet {
         } else if ("delete".equalsIgnoreCase(req.getParameter("action"))){
             prodDB.delRecord(req.getParameter("productID"));
             res.sendRedirect("m_product?action=maintain");
+        } else if ("add".equalsIgnoreCase(req.getParameter("action"))){
+            ProductBean pb = new ProductBean();
+            CategoryBean cb = cateDB.queryByName(req.getParameter("categoryName"));
+            prodDB.addRecord(req.getParameter("productID"),req.getParameter("name"),req.getParameter("description"),
+                    cb.getCategoryID(),Integer.parseInt(req.getParameter("price")),req.getParameter("picturePath"));
+            res.sendRedirect("m_product?action=maintain");
         } else if ("edit".equalsIgnoreCase(req.getParameter("action"))){
             ProductBean pb = new ProductBean();
             pb.setProductID(req.getParameter("productID"));

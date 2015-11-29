@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </a>
-            <a href="m_order.jsp">
+            <a href="m_order?action=maintain">
                 <div class="item_div" id="item_order">
                     <div class="item_border">
                         <div class="item_word_border">
