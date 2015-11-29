@@ -33,19 +33,42 @@ public class ShoppingCartController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        add(req, resp);
     }
 
     private void add(HttpServletRequest req, HttpServletResponse res) {
-        HttpSession session = req.getSession(true);
-        if (session.getAttribute("shopCar") == null) {
-            ProductBean pb = new ProductBean();
-            pb.setQty(Integer.parseInt(req.getParameter("qty")));
-            pb.setProductID(req.getParameter("id"));
-            pb.setPrice(Integer.parseInt(req.getParameter("price")));
-            ArrayList<ShoppingCartBean> scbArrayList = new ArrayList<>();
-            ShoppingCartBean x = new ShoppingCartBean();
-            x.addBean(new ProductBean());
+        HttpSession session = req.getSession(false);
+        if (session != null) {
+            ArrayList shop = (ArrayList) session.getAttribute("shoppingCart");
+            if (shop == null) {
+                ProductBean pb = new ProductBean();
+                pb.setQty(Integer.parseInt(req.getParameter("qty")));
+                pb.setProductID(req.getParameter("id"));
+                pb.setPrice(Integer.parseInt(req.getParameter("price")));
+                ArrayList<ShoppingCartBean> scbArrayList = new ArrayList<>();
+                ShoppingCartBean x = new ShoppingCartBean();
+                x.addBean(new ProductBean());
+                scbArrayList.add(x);
+                session.setAttribute("shoppingCart", scbArrayList);
+            } else {
+                ProductBean addProduct = new ProductBean();
+                addProduct.setQty(Integer.parseInt(req.getParameter("qty")));
+                addProduct.setProductID(req.getParameter("itemID"));
+                addProduct.setPrice(Integer.parseInt(req.getParameter("price")));
+                ArrayList<ShoppingCartBean> scbEsixt = (ArrayList<ShoppingCartBean>) session.getAttribute("shoppingCart");
+                for (int i = 0; i < scbEsixt.size(); i++) {
+                    if (scbEsixt.get(i).getX().get(i).getProductID().equals(addProduct.getProductID())) {
+                        scbEsixt.get(i).updateProduct(addProduct);
+                        session.setAttribute("shoppingCart", scbEsixt);
+                    } else {
+                        ShoppingCartBean newPb = new ShoppingCartBean();
+                        newPb.addBean(addProduct);
+                        scbEsixt.add(newPb);
+                        session.setAttribute("shoppingCart", scbEsixt);
+                    }
+                }
+            }
         }
     }
 }
+

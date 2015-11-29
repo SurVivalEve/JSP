@@ -31,5 +31,13 @@ public class ShoppingCartBean {
         x.add(pb);
     }
 
+    public void updateProduct(ProductBean pb) {
+        for(int i=0; i<x.size();i++){
+            if(pb.getProductID().equals(x.get(i).getProductID())){
+                x.get(i).setQty(pb.getQty());
+            }
+        }
+    }
+
 
 }

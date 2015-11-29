@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="bean.ShoppingCartBean" %><%--
   Created by IntelliJ IDEA.
   User: Sur.Vival
   Date: 23/11/2015
@@ -15,8 +16,18 @@
     <link rel="stylesheet" type="text/css" href="css/common.css">
 </head>
 <body>
+<%
+    ArrayList<ShoppingCartBean> scb = null;
+    try {
+        scb = (ArrayList) session.getAttribute("shoppingCart");
+    } catch (NullPointerException ex) {
+        ex.printStackTrace();
+    }
+%>
 <jsp:include page="navigation.jsp"></jsp:include>
-<div id="space-control"><hr></div>
+<div id="space-control">
+    <hr>
+</div>
 <div class="c-table">
     <table>
         <tr>
@@ -26,6 +37,19 @@
             <th>Quantity</th>
             <th>Amount</th>
         </tr>
+        <%
+            if (scb != null) {
+                for (int i = 0; i < scb.size(); i++) {
+                    out.println("<tr>" +
+                            "<td>" + scb.get(i).getX().get(i).getProductID() + "</td>" +
+                            "<td>" + scb.get(i).getX().get(i).getName() + "</td>" +
+                            "<td>" + scb.get(i).getX().get(i).getPrice() + "</td>" +
+                            "<td><input type=\"text\" name=\"qty\" value=\"" + scb.get(i).getX().get(i).getQty() + "\"></td>" +
+                            "<td>" + "</td>" +
+                            "</tr>");
+                }
+            }
+        %>
         <tr>
             <td>1</td>
             <td>2</td>
@@ -34,41 +58,15 @@
             <td>NULL</td>
             <input type="hidden" name="id[]" value="123456"/>
         </tr>
-        <tr>
-            <td>5</td>
-            <td>6</td>
-            <td>7</td>
-            <td><input type="text" value="4"></td>
-            <td>NULL</td>
-        </tr>
-        <tr>
-            <td>9</td>
-            <td>10</td>
-            <td>11</td>
-            <td><input type="text" value="4"></td>
-            <td>NULL</td>
-        </tr>
-        <tr>
-            <td>13</td>
-            <td>14</td>
-            <td>15</td>
-            <td><input type="text" value="4"></td>
-            <td>NULL</td>
-        </tr>
-        <tr>
-            <td>17</td>
-            <td>18</td>
-            <td>19</td>
-            <td><input type="text" value="4"></td>
-            <td>NULL</td>
-        </tr>
     </table>
 
     <div class="c-total">
         <div class="d-option">
             <div id="op1">Self-Pick<input type="radio" value="self-pick" name="deliveryOption"></div>
             <div id="op2">Delivery<input type="radio" value="delivery" name="deliveryOption" checked="checked"></div>
-            <div id="upDate"><button type="submit">Update Shopping Cart</button></div>
+            <div id="upDate">
+                <button type="submit">Update Shopping Cart</button>
+            </div>
         </div>
         <div id="total">Total:<input type="text" readonly></div>
     </div>
