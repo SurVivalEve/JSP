@@ -37,10 +37,13 @@ public class ProfileController extends HttpServlet {
         String action = req.getParameter("action");
         if ("updateDetails".equalsIgnoreCase(action)) {
             doChange(req,resp);
-        } else {
-            PrintWriter out = resp.getWriter();
-            out.println("No such action");
+        } else if ("showOrder".equalsIgnoreCase(action)) {
+            showOrders(req,resp);
         }
+    }
+
+    private void showOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 
     private void doChange(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

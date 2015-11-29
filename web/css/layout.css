@@ -70,6 +70,10 @@
     color: chocolate;
 }
 
+.c-client div a{
+    text-decoration: none;
+}
+
 .c-main {
     display: flex;
     margin-top:0px;

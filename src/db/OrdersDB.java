@@ -4,6 +4,7 @@ import bean.AccountBean;
 import bean.OrdersBean;
 import bean.ProductBean;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -81,6 +82,36 @@ public class OrdersDB {
             ex.printStackTrace();
         }
         return isSuccess;
+    }
+
+    public ArrayList<OrdersBean> queryMyOrders(String clientID) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        OrdersBean ob = null;
+        ArrayList<OrdersBean> orderList = new ArrayList<OrdersBean>();
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM orders WHERE clientID=? AND status <> 'Delivered'";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, clientID);
+            ResultSet rs = pStmnt.executeQuery();
+            while (rs.next()) {
+                ob = new OrdersBean();
+                ob.setOrderID(rs.getString(1));
+                ob.setClient();
+
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return orderList;
     }
 
     public OrdersBean queryByID(String orderID) {
