@@ -16,7 +16,7 @@ public class TestQueryCust {
         String username = "jsp";
         String password = "jsp";
         OrdersDB db = new OrdersDB(url, username, password);
-        /*
+/*
         ArrayList<ProductBean> products = new ArrayList<ProductBean>();
 
         ProductBean prodA = new ProductBean();
@@ -29,12 +29,13 @@ public class TestQueryCust {
         prodB.setQty(3);
         products.add(prodB);
 
-        db.addRecord("O006","A001",products,"Process","",null);
-        */
-        /*
+        db.addRecord("O006","A001",products,"Process",123,"",null);
+*/
+/*
         OrdersBean ob = db.queryByID("O001");
         System.out.println(ob.getOrderID());
         System.out.println(ob.getStatus());
+        System.out.println(ob.getTotalAmount());
         System.out.println(ob.getPickupTime());
         System.out.println(ob.getDeliveryAddress());
         System.out.println(ob.getCancelled());
@@ -61,13 +62,14 @@ public class TestQueryCust {
             System.out.println(ob.getProductBeans().get(i).getQty());
             System.out.println("-------------------");
         }
-        */
+*/
         /*
         ArrayList<OrdersBean> obs = db.queryOrders();
         for(int i=0; i<obs.size(); i++) {
             System.out.println("--------------------------------------------");
             System.out.println(obs.get(i).getOrderID());
             System.out.println(obs.get(i).getStatus());
+            System.out.println(obs.get(i).getTotalAmount());
             System.out.println(obs.get(i).getPickupTime());
             System.out.println(obs.get(i).getDeliveryAddress());
             System.out.println(obs.get(i).getCancelled());

@@ -32,7 +32,7 @@ public class OrdersDB {
         return DriverManager.getConnection(dburl, dbUser, dbPassword);
     }
 
-    public boolean addRecord(String orderID, String clientID, ArrayList<ProductBean> products, String status, String totalAmount, String deliveryAddress, Date pickupTime) {
+    public boolean addRecord(String orderID, String clientID, ArrayList<ProductBean> products, String status, int totalAmount, String deliveryAddress, Date pickupTime) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
@@ -46,7 +46,7 @@ public class OrdersDB {
                 pStmnt.setString(2, clientID);
                 pStmnt.setTimestamp(3, new java.sql.Timestamp((new Date()).getTime()));
                 pStmnt.setString(4, status);
-                pStmnt.setString(5, totalAmount);
+                pStmnt.setInt(5, totalAmount);
 
                 if (!deliveryAddress.equals(""))
                     pStmnt.setString(6, null);
