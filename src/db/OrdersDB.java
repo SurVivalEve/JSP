@@ -17,7 +17,7 @@ public class OrdersDB {
     private String dbUser = "";
     private String dbPassword = "";
 
-    public OrdersDB(String dburl, String dbUser, String dbPassword){
+    public OrdersDB(String dburl, String dbUser, String dbPassword) {
         this.dburl = dburl;
         this.dbUser = dbUser;
         this.dbPassword = dbPassword;
@@ -32,33 +32,35 @@ public class OrdersDB {
         return DriverManager.getConnection(dburl, dbUser, dbPassword);
     }
 
-    public boolean addRecord(String orderID, String clientID, ArrayList<ProductBean> products, String status, String deliveryAddress, Date pickupTime){
+    public boolean addRecord(String orderID, String clientID, ArrayList<ProductBean> products, String status, String totalAmount, String deliveryAddress, Date pickupTime) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
             //add record to orders table
-            if (products.size() > 0){
-                String preQueryStatement = "INSERT INTO orders VALUES (?,?,?,?,?,?,?)";
+            if (products.size() > 0) {
+                String preQueryStatement = "INSERT INTO orders VALUES (?,?,?,?,?,?,?,?)";
                 pStmnt = cnnct.prepareStatement(preQueryStatement);
                 pStmnt.setString(1, orderID);
                 pStmnt.setString(2, clientID);
                 pStmnt.setTimestamp(3, new java.sql.Timestamp((new Date()).getTime()));
                 pStmnt.setString(4, status);
-                if(!deliveryAddress.equals(""))
-                    pStmnt.setString(5, null);
+                pStmnt.setString(5, totalAmount);
+
+                if (!deliveryAddress.equals(""))
+                    pStmnt.setString(6, null);
                 else
-                    pStmnt.setString(5, deliveryAddress);
-                if(pickupTime==null)
-                    pStmnt.setNull(6, java.sql.Types.DATE);
+                    pStmnt.setString(6, deliveryAddress);
+                if (pickupTime == null)
+                    pStmnt.setNull(7, java.sql.Types.DATE);
                 else
-                    pStmnt.setDate(6, new java.sql.Date(pickupTime.getTime()));
-                pStmnt.setString(7, "N");
+                    pStmnt.setDate(7, new java.sql.Date(pickupTime.getTime()));
+                pStmnt.setString(8, "N");
                 pStmnt.executeUpdate();
 
                 //add record to orderline table
-                for(int i=0; i<products.size(); i++) {
+                for (int i = 0; i < products.size(); i++) {
                     preQueryStatement = "INSERT INTO orderline VALUES (?,?,?)";
                     pStmnt = cnnct.prepareStatement(preQueryStatement);
                     pStmnt.setString(1, orderID);
@@ -71,7 +73,7 @@ public class OrdersDB {
             cnnct.close();
             isSuccess = true;
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -81,32 +83,33 @@ public class OrdersDB {
         return isSuccess;
     }
 
-    public OrdersBean queryByID(String orderID){
+    public OrdersBean queryByID(String orderID) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         OrdersBean ob = null;
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatement = "SELECT * FROM orders WHERE orderID=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, orderID);
             ResultSet rs = pStmnt.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 ob = new OrdersBean();
                 ob.setOrderID(orderID);
 
                 //set account detail
-                AccountDB accountDB = new AccountDB(dburl,dbUser,dbPassword);
+                AccountDB accountDB = new AccountDB(dburl, dbUser, dbPassword);
                 AccountBean ab = accountDB.queryByID(rs.getString("clientID"));
                 ob.setClient(ab);
 
                 ob.setStatus(rs.getString("status"));
+                ob.setTotalAmount(rs.getInt("totalAmount"));
                 ob.setDeliveryAddress(rs.getString("deliveryAddress"));
                 if (rs.getDate("pickupTime") != null)
                     ob.setPickupTime(new java.util.Date(rs.getDate("pickupTime").getTime()));
                 else
                     ob.setPickupTime(null);
-                if(rs.getString("cancelled").equalsIgnoreCase("Y"))
+                if (rs.getString("cancelled").equalsIgnoreCase("Y"))
                     ob.setCancelled(true);
                 else
                     ob.setCancelled(false);
@@ -117,7 +120,7 @@ public class OrdersDB {
             pStmnt.setString(1, orderID);
             rs = pStmnt.executeQuery();
             ArrayList<ProductBean> products = new ArrayList<ProductBean>();
-            ProductDB prodDB = new ProductDB(dburl,dbUser,dbPassword);
+            ProductDB prodDB = new ProductDB(dburl, dbUser, dbPassword);
             while (rs.next()) {
                 //set productBean
                 ProductBean pb = prodDB.queryByID(rs.getString("productID"));
@@ -128,7 +131,7 @@ public class OrdersDB {
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -138,34 +141,35 @@ public class OrdersDB {
         return ob;
     }
 
-    public ArrayList<OrdersBean> queryOrders(){
+    public ArrayList<OrdersBean> queryOrders() {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
 
         ArrayList<OrdersBean> obs = new ArrayList<OrdersBean>();
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatement = "SELECT * FROM orders";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             ResultSet rs = null;
             rs = pStmnt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
 
                 OrdersBean ob = new OrdersBean();
                 ob.setOrderID(rs.getString("orderID"));
 
                 //set account detail
-                AccountDB accountDB = new AccountDB(dburl,dbUser,dbPassword);
+                AccountDB accountDB = new AccountDB(dburl, dbUser, dbPassword);
                 AccountBean ab = accountDB.queryByID(rs.getString("clientID"));
                 ob.setClient(ab);
 
                 ob.setStatus(rs.getString("status"));
+                ob.setTotalAmount(rs.getInt("totalAmount"));
                 ob.setDeliveryAddress(rs.getString("deliveryAddress"));
                 if (rs.getDate("pickupTime") != null)
                     ob.setPickupTime(new java.util.Date(rs.getDate("pickupTime").getTime()));
                 else
                     ob.setPickupTime(null);
-                if(rs.getString("cancelled").equalsIgnoreCase("Y"))
+                if (rs.getString("cancelled").equalsIgnoreCase("Y"))
                     ob.setCancelled(true);
                 else
                     ob.setCancelled(false);
@@ -175,7 +179,7 @@ public class OrdersDB {
                 pStmnt2.setString(1, rs.getString("orderID"));
                 ResultSet rs2 = pStmnt2.executeQuery();
                 ArrayList<ProductBean> products = new ArrayList<ProductBean>();
-                ProductDB prodDB = new ProductDB(dburl,dbUser,dbPassword);
+                ProductDB prodDB = new ProductDB(dburl, dbUser, dbPassword);
                 while (rs2.next()) {
                     //set productBean
                     ProductBean pb = prodDB.queryByID(rs2.getString("productID"));
@@ -188,7 +192,7 @@ public class OrdersDB {
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -198,13 +202,13 @@ public class OrdersDB {
         return obs;
     }
 
-    public boolean delRecord(String orderID){
+    public boolean delRecord(String orderID) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
-        try{
+        try {
             cnnct = getConnection();
-            String preQueryStatement="";
+            String preQueryStatement = "";
             preQueryStatement = "DELETE FROM orderline WHERE orderID=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, orderID);
@@ -219,7 +223,7 @@ public class OrdersDB {
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -229,30 +233,31 @@ public class OrdersDB {
         return isSuccess;
     }
 
-    public boolean editRecord(OrdersBean ob){
+    public boolean editRecord(OrdersBean ob) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
-        try{
+        try {
             cnnct = getConnection();
             //update orders table
-            String preQueryStatement = "UPDATE orders SET clientID=?, status=?, deliveryAddress=?, pickupTime=?, cancelled=? WHERE orderID=?";
+            String preQueryStatement = "UPDATE orders SET clientID=?, status=?, totalAmount=?,deliveryAddress=?, pickupTime=?, cancelled=? WHERE orderID=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, ob.getClient().getId());
             pStmnt.setString(2, ob.getStatus());
-            if(ob.getDeliveryAddress().equals(""))
-                pStmnt.setNull(3, java.sql.Types.VARCHAR);
+            pStmnt.setInt(3, ob.getTotalAmount());
+            if (ob.getDeliveryAddress().equals(""))
+                pStmnt.setNull(4, java.sql.Types.VARCHAR);
             else
-                pStmnt.setString(3, ob.getDeliveryAddress());
-            if(ob.getPickupTime()==null)
-                pStmnt.setNull(4, java.sql.Types.DATE);
+                pStmnt.setString(4, ob.getDeliveryAddress());
+            if (ob.getPickupTime() == null) 
+                pStmnt.setNull(5, java.sql.Types.DATE);
             else
-                pStmnt.setDate(4, new java.sql.Date(ob.getPickupTime().getTime()));
-            if (ob.getCancelled()==true)
-                pStmnt.setString(5, "Y");
+                pStmnt.setDate(5, new java.sql.Date(ob.getPickupTime().getTime()));
+            if (ob.getCancelled() == true)
+                pStmnt.setString(6, "Y");
             else
-                pStmnt.setString(5, "N");
-            pStmnt.setString(6, ob.getOrderID());
+                pStmnt.setString(6, "N");
+            pStmnt.setString(7, ob.getOrderID());
             pStmnt.execute();
 
             //update orderline table
@@ -260,7 +265,7 @@ public class OrdersDB {
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, ob.getOrderID());
             pStmnt.execute();
-            for(int i=0; i<ob.getProductBeans().size(); i++) {
+            for (int i = 0; i < ob.getProductBeans().size(); i++) {
                 preQueryStatement = "INSERT INTO orderline VALUES (?,?,?)";
                 pStmnt = cnnct.prepareStatement(preQueryStatement);
                 pStmnt.setString(1, ob.getOrderID());
@@ -273,7 +278,7 @@ public class OrdersDB {
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }

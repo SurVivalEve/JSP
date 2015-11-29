@@ -11,6 +11,7 @@ public class OrdersBean {
     private String deliveryAddress;
     private Date pickupTime;
     private boolean cancelled;
+    private int totalAmount;
 
     public OrdersBean() {
     }
@@ -31,9 +32,13 @@ public class OrdersBean {
         this.client = client;
     }
 
-    public ArrayList<ProductBean> getProductBeans() { return products; }
+    public ArrayList<ProductBean> getProductBeans() {
+        return products;
+    }
 
-    public void setProducts(ArrayList<ProductBean> products) { this.products = products; }
+    public void setProducts(ArrayList<ProductBean> products) {
+        this.products = products;
+    }
 
     public String getStatus() {
         return status;
@@ -65,5 +70,13 @@ public class OrdersBean {
 
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
+    }
+
+    public void setTotalAmount(int totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public int getTotalAmount(){
+        return totalAmount;
     }
 }
