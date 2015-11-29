@@ -1,4 +1,6 @@
-<%@ page import="bean.AccountBean" %><%--
+<%@ page import="bean.AccountBean" %>
+<%@ page import="db.AccountDB" %>
+<%--
   Created by IntelliJ IDEA.
   User: matthew
   Date: 29/11/2015
@@ -48,7 +50,16 @@
     </script>
 
     <%
-        AccountBean client = (AccountBean) session.getAttribute("userInfo");
+        AccountBean client = null;
+        AccountDB db = null;
+        AccountBean newClient = null;
+        try {
+             client = (AccountBean) session.getAttribute("userInfo");
+             db = new AccountDB("jdbc:mysql://kazechan.ddns.net:3306/jsp","jsp","jsp");
+             newClient = db.queryByID(client.getId());
+        } catch (NullPointerException ex) {
+
+        }
     %>
 </head>
 <body>
@@ -91,7 +102,8 @@
                 try {
                     if (client != null)
                         out.println("<div> Welcome - " + client.getName() + "</div>");
-                    out.println("<div>Account amount - " + client.getAmount() + "</div>");
+                        out.println("<div>Account amount - " + newClient.getAmount() + "</div>");
+                        out.println("<div>Bouns Point - " + newClient.getBounsPoint() + "</div>");
                 } catch (NullPointerException ex) {
                     ex.printStackTrace();
                 }
