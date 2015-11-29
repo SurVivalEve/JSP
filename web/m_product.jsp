@@ -1,5 +1,7 @@
 <%@ page import="bean.ProductBean" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="bean.AccountBean" %>
+<%@ page import="bean.CategoryBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -53,8 +55,7 @@
             $("#editMessage").hide();
             $("#productID").val("");
             $("#picturePath").val("");
-            $("#cateName").val("");
-            $("#categoryName").val("");
+            $("#name").val("");
             $("#description").val("");
             $("#price").val("0");
             $("#message").show();
@@ -62,6 +63,12 @@
     </script>
 </head>
 <body>
+<%
+    AccountBean ab = (AccountBean) session.getAttribute("adminInfo");
+    if(ab == null) {
+        response.sendRedirect("notLoggedInYet.jsp");
+    }
+%>
 <jsp:include page="m_navigation.jsp" />
 <div id="content" class="SITE_STRUCTURE content">
     <div style="display: block;" class="tabs_item" id="select_main">
@@ -71,7 +78,24 @@
                     <tr><td class="edit">Product ID:</td><td class="edit"><input type="text" name="productID"/></td></tr>
                     <tr><td class="edit">Picture:</td><td class="edit"><input type="text" name="picturePath"/></td></tr>
                     <tr><td class="edit">Name:</td><td class="edit"><input type="text" name="name"/></td></tr>
-                    <tr><td class="edit">Category name:</td><td class="edit"><input type="text" name="categoryName"/></td></tr>
+                    <tr>
+                        <td class="edit">Category name:</td>
+                        <td class="edit">
+                            <%
+                                ArrayList<CategoryBean> cbs = new ArrayList<CategoryBean>();
+                                if(request.getAttribute("products")!=null){
+                                    cbs = (ArrayList<CategoryBean>) request.getAttribute("categories");
+                                    if(cbs.size()!=0){
+                                        out.println("<select name='categoryName'>");
+                                        for(int i=0; i<cbs.size(); i++){
+                                            out.println("<option value='"+cbs.get(i).getName()+"'>"+cbs.get(i).getName()+"</option>");
+                                        }
+                                        out.println("</select>");
+                                    }
+                                }
+                            %>
+                        </td>
+                    </tr>
                     <tr><td class="edit">Description:</td><td class="edit"><input type="text" name="description"/></td></tr>
                     <tr><td class="edit">Price:</td><td class="edit"><input type="text" id="price2" name="price"/></td></tr>
                     <tr><td colspan="2"><input class="myButton" style="display: block; width: 100%;" type="submit" onclick='return confirm("Are you sure?")' value="Create"/></td></tr>
@@ -85,7 +109,23 @@
                     <tr><td class="edit">Product ID:</td><td class="edit"><input type="text" name="productID" id="productID"/></td></tr>
                     <tr><td class="edit">Picture:</td><td class="edit"><input type="text" name="picturePath" id="picturePath"/></td></tr>
                     <tr><td class="edit">Name:</td><td class="edit"><input type="text" name="name" id="name"/></td></tr>
-                    <tr><td class="edit">Category name:</td><td class="edit"><input type="text" name="categoryName" id="categoryName"/></td></tr>
+                    <tr>
+                        <td class="edit">Category name:</td>
+                        <td class="edit">
+                            <%
+                                if(request.getAttribute("products")!=null){
+                                    cbs = (ArrayList<CategoryBean>) request.getAttribute("categories");
+                                    if(cbs.size()!=0){
+                                        out.println("<select id='categoryName' name='categoryName'>");
+                                        for(int i=0; i<cbs.size(); i++){
+                                            out.println("<option value='"+cbs.get(i).getName()+"'>"+cbs.get(i).getName()+"</option>");
+                                        }
+                                        out.println("</select>");
+                                    }
+                                }
+                            %>
+                        </td>
+                    </tr>
                     <tr><td class="edit">Description:</td><td class="edit"><input type="text" name="description" id="description"/></td></tr>
                     <tr><td class="edit">Price:</td><td class="edit"><input type="text" name="price" id="price"/></td></tr>
                     <tr><td colspan="2"><input class="myButton" style="display: block; width: 100%;" type="submit" onclick='return confirm("Are you sure?")' value="Edit"/></td></tr>
@@ -102,17 +142,17 @@
                     if(pbs.size()!=0){
                         out.println("<form method='post' action='m_client?action=save'>");
                         out.println("<table id='message_table'>");
-                        out.println("<colgroup><col style='width:7%'><col style='width:20%'><col style='width:15'><col style='width:12%'>");
+                        out.println("<colgroup><col style='width:7%'><col style='width:20%'><col style='width:15%'><col style='width:12%'>");
                         out.println("<col style='width:25%'><col style='width:7%'><col style='width:7%'><col style='width:7%'></colgroup>");
                         out.println("<tr><th>ID</th><th>Picture</th><th>Name</th><th>Category</th><th>Description</th><th>Price</th>");
                         out.println("<th colspan='2'><a onclick='showAddMessage()'><img src='img/b_snewtbl.png'/>Add product</a></th></tr>");
                         for(int i=0; i<pbs.size(); i++) {
                             out.println("<tr><td>" + pbs.get(i).getProductID() + "</td>");
-                            out.println("<td>" + pbs.get(i).getPicturePath() + "</td>");
+                            out.println("<td><img height='80' width='80' src='"+pbs.get(i).getPicturePath()+"'/><br/>" + pbs.get(i).getPicturePath() + "</td>");
                             out.println("<td>" + pbs.get(i).getName() + "</td>");
                             out.println("<td>" + pbs.get(i).getCategoryID().getName() + "</td>");
                             out.println("<td>" + pbs.get(i).getDescriptions() + "</td>");
-                            out.println("<td>" + pbs.get(i).getPrice() + "</td>");
+                            out.println("<td>$" + pbs.get(i).getPrice() + "</td>");
                             out.println("<td><a onclick='showEditMessage(" +
                                     "\"" + pbs.get(i).getProductID() + "\"," +
                                     "\"" + pbs.get(i).getPicturePath() + "\"," +

@@ -34,9 +34,11 @@ public class MaintainProductController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
-        ArrayList<ProductBean> products = prodDB.qeuryProduct();
         if("maintain".equalsIgnoreCase(req.getParameter("action"))) {
+            ArrayList<ProductBean> products = prodDB.qeuryProduct();
+            ArrayList<CategoryBean> categories = cateDB.queryCategory();
             req.setAttribute("products", products);
+            req.setAttribute("categories", categories);
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/m_product.jsp");
             rd.forward(req,res);

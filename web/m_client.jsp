@@ -40,6 +40,12 @@
     </script>
 </head>
 <body>
+<%
+    AccountBean ab = (AccountBean) session.getAttribute("adminInfo");
+    if(ab == null) {
+        response.sendRedirect("notLoggedInYet.jsp");
+    }
+%>
 <jsp:include page="m_navigation.jsp" />
 <div id="content" class="SITE_STRUCTURE content">
     <div style="display: block;" class="tabs_item" id="select_main">

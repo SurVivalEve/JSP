@@ -2,6 +2,7 @@
 <%@ page import="bean.OrdersBean" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="bean.AccountBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -33,10 +34,18 @@
         function showSelectMessage(){
             $(".select_main").show();
             $('#update_order').hide();
+            $('#obtain_report').hide();
         }
+
     </script>
 </head>
 <body>
+<%
+    AccountBean ab = (AccountBean) session.getAttribute("adminInfo");
+    if(ab == null) {
+        response.sendRedirect("notLoggedInYet.jsp");
+    }
+%>
 <jsp:include page="m_navigation.jsp" />
 <div id="content" class="SITE_STRUCTURE content">
     <div style="display: block;" class="tabs_item" id="select_main">
@@ -55,6 +64,7 @@
                     <div class="item_word_border">
                         <div class="item_word2">
                             <h2 style="font-size: 25px;" id="sp">Obtain a report for<br/> incomplete orders</h2>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -77,7 +87,7 @@
                         out.println("<tr><th>ID</th><th>Client Name</th><th>Date</th><th>Status</th><th>Total Amount</th>");
                         out.println("<th>Delivery Address</th><th>Pick-up Time</th><th>Cancelled</th></tr>");
                         for(int i=0; i<obs.size(); i++) {
-                            out.println("<tr><td>" + obs.get(i).getOrderID() + "</td>");
+                            out.println("<tr><td><a href='m_showOrderDetail?action=show&orderID="+obs.get(i).getOrderID()+"'/>" + obs.get(i).getOrderID() + "</td>");
                             out.println("<td>" + obs.get(i).getClient().getName() + "</td>");
                             out.println("<td>" + sf.format(obs.get(i).getOrderDate()) + "</td>");
                             if ("Process".equalsIgnoreCase(obs.get(i).getStatus())){
@@ -109,7 +119,7 @@
                                         "<option value='Cancel' selected='selected'>Cancel</option>" +
                                         "</select><input type='hidden' name='orderID' value='"+obs.get(i).getOrderID()+"'/></td>");
                             }
-                            out.println("<td>" + obs.get(i).getTotalAmount() + "</td>");
+                            out.println("<td>$" + obs.get(i).getTotalAmount() + "</td>");
                             if(obs.get(i).getDeliveryAddress()==null)
                                 out.println("<td></td>");
                             else
@@ -152,7 +162,7 @@
                         out.println("<th>Delivery Address</th><th>Pick-up Time</th><th>Cancelled</th></tr>");
                         for(int i=0; i<obs.size(); i++) {
                             if ("Process".equalsIgnoreCase(obs.get(i).getStatus())) {
-                                out.println("<tr><td>" + obs.get(i).getOrderID() + "</td>");
+                                out.println("<tr><td><a href='m_showOrderDetail?action=show&orderID="+obs.get(i).getOrderID()+"'/>" + obs.get(i).getOrderID() + "</td>");
                                 out.println("<td>" + obs.get(i).getClient().getName() + "</td>");
                                 out.println("<td>" + sf.format(obs.get(i).getOrderDate()) + "</td>");
                                 out.println("<td><select name='status'>" +
@@ -161,7 +171,7 @@
                                         "<option name='Picked-up' value='Picked-up'>Picked-up</option>" +
                                         "<option name='Cancel' value='Cancel'>Cancel</option>" +
                                         "</select><input type='hidden' name='orderID' value='"+obs.get(i).getOrderID()+"'/></td>");
-                                out.println("<td>" + obs.get(i).getTotalAmount() + "</td>");
+                                out.println("<td>$" + obs.get(i).getTotalAmount() + "</td>");
                                 if (obs.get(i).getDeliveryAddress() == null)
                                     out.println("<td></td>");
                                 else

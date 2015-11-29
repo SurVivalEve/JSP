@@ -1,10 +1,15 @@
 <%@ page import="bean.AccountBean" %>
-<%@ page import="db.AccountDB" %>
 <html>
 <head>
     <link href="css/manager.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<%
+    AccountBean ab = (AccountBean) session.getAttribute("adminInfo");
+    if(ab == null) {
+        response.sendRedirect("notLoggedInYet.jsp");
+    }
+%>
 <div id="topDIV_div">
     <ul id="topDIV_ul" class="SITE_STRUCTURE">
         <li class="web_title">Manager Page</li>
