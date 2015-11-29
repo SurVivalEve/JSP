@@ -106,7 +106,7 @@
             <ul>
                 <li>Profile</li>
                 <li><a href="ProductList?action=all">Products</a></li>
-                <li><a href="redeemGift.jsp">RedeemGift</a></li>
+                <li><a href="redeem?action=all">RedeemGift</a></li>
                 <li><a href="shoppingCart.jsp">Shopping Cart</a></li>
                 <%
                     try {

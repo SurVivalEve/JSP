@@ -67,9 +67,8 @@ public class GiftDB {
             String preQueryStatement = "SELECT * FROM gift WHERE giftID=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, id);
-            ResultSet rs = null;
-            rs = pStmnt.executeQuery();
-            if (rs.next()){
+            ResultSet rs = pStmnt.executeQuery();
+            if (rs.next()) {
                 gb = new GiftBean();
                 gb.setId(id);
                 gb.setName(rs.getString("name"));

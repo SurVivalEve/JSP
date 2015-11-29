@@ -1,4 +1,4 @@
-<%@ page import="bean.AccountBean" %>
+        <%@ page import="bean.AccountBean" %>
 <%--
   Created by IntelliJ IDEA.
   User: Sur.Vival
@@ -30,6 +30,7 @@
         });
     </script>
 </head>
+<%@ page language="java" errorPage="notLoggedInYet.jsp" %>
 <%
     AccountBean client = (AccountBean) session.getAttribute("userInfo");
 %>

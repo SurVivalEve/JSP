@@ -53,10 +53,9 @@ public class RechargeController extends HttpServlet {
         } else {
             targetURL = "recharge.jsp";
         }
-//        RequestDispatcher rd;
-//        rd = getServletContext().getRequestDispatcher("/" + targetURL);
-//        rd.forward(request,response);
-        response.sendRedirect(targetURL);
+        RequestDispatcher rd;
+        rd = getServletContext().getRequestDispatcher("/" + targetURL);
+        rd.forward(request,response);
 
     }
 }
