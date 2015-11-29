@@ -11,6 +11,12 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="css/layout.css">
     <script type="text/javascript">
+
+        function disableAfterLogin() {
+            var target = document.getElementsByClassName("right-side");
+            target.style().visibility = "hidden";
+        }
+
         function overLay(srcData) {
             var s = document.querySelector("#overlay-content > iframe:nth-child(2)");
             s.src = srcData;
@@ -79,11 +85,12 @@
 
     <div class="logo">
         <a href="index.jsp"><img src="img/pencil_PNG3860.png" height="100px"></a>
+
         <div class="c-client">
             <%
                 try {
                     if (client != null)
-                    out.println("<div> Welcome - " + client.getName() + "</div>");
+                        out.println("<div> Welcome - " + client.getName() + "</div>");
                     out.println("<div>Account amount - " + client.getAmount() + "</div>");
                 } catch (NullPointerException ex) {
                     ex.printStackTrace();
@@ -105,6 +112,7 @@
                     try {
                         if (client != null)
                             out.print("<li><a href=\"recharge.jsp\">Recharge Funds</a></li>");
+                            out.println("<script>disableAfterLogin();</script>");
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
                     }

@@ -15,10 +15,5 @@
 </head>
 <body>
 <jsp:include page="navigation.jsp"></jsp:include>
-<div class="c-main">
-    <div class="c-left">
-    </div>
-    <div class="c-right"></div>
-</div>
 </body>
 </html>

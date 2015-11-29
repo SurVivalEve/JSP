@@ -72,6 +72,7 @@
 
 .c-main {
     display: flex;
+    margin-top:0px;
 }
 
 .c-left {
@@ -179,8 +180,8 @@ body {
 }
 
 #login-content {
+    background: white;
     width: 40%;
-    background: turquoise;
     height: 50%;
     position: fixed;
     top: 20%;
