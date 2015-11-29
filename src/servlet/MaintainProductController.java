@@ -1,6 +1,5 @@
 package servlet;
 
-import bean.AccountBean;
 import bean.ProductBean;
 import db.ProductDB;
 
@@ -37,6 +36,7 @@ public class MaintainProductController extends HttpServlet {
             rd = getServletContext().getRequestDispatcher("/m_product.jsp");
             rd.forward(req,res);
         } else if ("delete".equalsIgnoreCase(req.getParameter("action"))){
+            db.delRecord(req.getParameter("productID"));
             res.sendRedirect("m_product?action=maintain");
         } else {
             PrintWriter out = res.getWriter();

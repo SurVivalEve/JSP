@@ -50,7 +50,7 @@
                     abs = (ArrayList<AccountBean>) request.getAttribute("accounts");
                     if(abs.size()!=0){
                         out.println("<form method='post' action='m_client?action=save'>");
-                        out.println("<table>");
+                        out.println("<table id='message_table'>");
                         out.println("<colgroup><col style='width:10%'><col style='width:10%'><col style='width:20'>");
                         out.println("<col style='width:10%'><col style='width:40%'><col style='width:10%'></colgroup>");
                         out.println("<tr><th>ID</th><th>Password</th><th>Name</th><th>Tel</th><th>Address</th><th>Validation<input type='checkbox' id='selectAll'/></th></tr>");
@@ -64,8 +64,8 @@
                         }
                         out.println("</table>");
                         out.println("<div id='btn'>");
-                            out.println("<input type='submit' value='Save'/>");
-                            out.println("<input type='reset' value='Cancel'/>");
+                            out.println("<input class='myButton' type='submit' value='Save'/>");
+                            out.println("<input class='myButton' type='reset' value='Cancel'/>");
                         out.println("</div>");
                     } else {
                         out.println("<h1>No account is waited for verify.</h1>");
