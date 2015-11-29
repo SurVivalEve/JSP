@@ -31,10 +31,10 @@ public class ShoppingCartBean {
         x.add(pb);
     }
 
-    public void updateProduct(ProductBean pb) {
+    public void updateProduct(String id, int qty) {
         for(int i=0; i<x.size();i++){
-            if(pb.getProductID().equals(x.get(i).getProductID())){
-                x.get(i).setQty(pb.getQty());
+            if(id.equals(x.get(i).getProductID())){
+                x.get(i).setQty(qty);
             }
         }
     }

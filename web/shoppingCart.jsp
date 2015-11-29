@@ -14,14 +14,30 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="css/cart.css">
     <link rel="stylesheet" type="text/css" href="css/common.css">
+    <script type="text/javascript">
+        function addressNoShow() {
+            var target = document.querySelector(".c-address");
+            target.style.visibility = " hidden";
+        }
+
+        function addressShow() {
+            var target = document.querySelector(".c-address");
+            target.style.visibility = "visible";
+        }
+    </script>
 </head>
 <body>
 <%
-    ArrayList<ShoppingCartBean> scb = null;
+    ShoppingCartBean scb = null;
     try {
-        scb = (ArrayList) session.getAttribute("shoppingCart");
+        scb = (ShoppingCartBean) session.getAttribute("shoppingCart");
     } catch (NullPointerException ex) {
         ex.printStackTrace();
+    }
+
+    if (scb == null) {
+        String redirectURL = "ProductList?action=all";
+        response.sendRedirect(redirectURL);
     }
 %>
 <jsp:include page="navigation.jsp"></jsp:include>
@@ -39,37 +55,49 @@
         </tr>
         <%
             if (scb != null) {
-                for (int i = 0; i < scb.size(); i++) {
+                for (int i = 0; i < scb.getX().size(); i++) {
                     out.println("<tr>" +
-                            "<td>" + scb.get(i).getX().get(i).getProductID() + "</td>" +
-                            "<td>" + scb.get(i).getX().get(i).getName() + "</td>" +
-                            "<td>" + scb.get(i).getX().get(i).getPrice() + "</td>" +
-                            "<td><input type=\"text\" name=\"qty\" value=\"" + scb.get(i).getX().get(i).getQty() + "\"></td>" +
-                            "<td>" + "</td>" +
-                            "</tr>");
+
+                            "<form method=\"get\" action=\"ShoppingCart\"><td>" + scb.getX().get(i).getName() + "</td>" +
+                            "<td>" + scb.getX().get(i).getProductID() + "</td>" +
+                            "<td>" + scb.getX().get(i).getPrice() + "</td>" +
+                            "<td><input type=\"text\" name=\"qty\" value=\"" + scb.getX().get(i).getQty() + "\"></td>" +
+                            "<td>" + scb.getX().get(i).getQty() * scb.getX().get(i).getPrice() + "</td>" +
+                            "<td class=\"icon-edit\"><button type=\"submit\"><img src=\"img/b_edit.png\"></button></td>" +
+                            "<td class=\"icon\"><a href=\"ShoppingCart?action=remove&itemID=" + scb.getX().get(i).getProductID() + "\"><img src=\"img/b_drop.png\"" + "/></a></td>" +
+                            "<input type=\"hidden\" name=\"itemID\" value=\"" + scb.getX().get(i).getProductID() + "\">" +
+                            "<input type=\"hidden\" name=\"action\" value=\"edit\">" +
+                            "</form></tr>");
                 }
             }
         %>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td><input type="text" name="qty[]" value="4"></td>
-            <td>NULL</td>
-            <input type="hidden" name="id[]" value="123456"/>
-        </tr>
     </table>
+    <form method="get" action="">
+        <div class="c-total">
 
-    <div class="c-total">
-        <div class="d-option">
-            <div id="op1">Self-Pick<input type="radio" value="self-pick" name="deliveryOption"></div>
-            <div id="op2">Delivery<input type="radio" value="delivery" name="deliveryOption" checked="checked"></div>
-            <div id="upDate">
-                <button type="submit">Update Shopping Cart</button>
+            <div class="d-option">
+                <div id="op1">Self-Pick<input type="radio" value="self-pick" name="deliveryOption"
+                                              onchange="addressNoShow();"></div>
+                <div id="op2">Delivery<input type="radio" value="delivery" name="deliveryOption" onchange="addressShow()" checked="checked">
+                </div>
+                <div id="upDate">
+                    <button type="submit">Update Shopping Cart</button>
+                </div>
             </div>
+            <%
+                int tA = 0;
+                for (int i = 0; i < scb.getX().size(); i++) {
+                    tA += (scb.getX().get(i).getPrice() * scb.getX().get(i).getQty());
+                }
+                out.println("<div id=\"total\">Total :$ " + tA + "</div>");
+            %>
         </div>
-        <div id="total">Total:<input type="text" readonly></div>
-    </div>
+        <hr id="nono">
+        <div class="c-address">
+            Address : <input type="text">
+        </div>
+    </form>
 </div>
+
 </body>
 </html>

@@ -71,12 +71,15 @@
                     for (int i = 0; i < pb.size(); i++) {
                         out.println("<li>\n" +
                                 "            <div class=\"c-detail\">\n" +
-                                "                <div class=\"detail-top\">" + "<img src=\"" + pb.get(i).getPicturePath() + "\"" + ">" + "</div>\n" +
+                                "                <form method=get action=\"ShoppingCart\"><div class=\"detail-top\">" + "<img src=\"" + pb.get(i).getPicturePath() + "\"" + ">" + "</div>\n" +
+                                "                <div class=\"detail-id\"><input type=\"hidden\" name=\"action\" value=\"add\"></div>\n" +
                                 "                <div class=\"detail-mid\">" + pb.get(i).getName() + "</div>\n" +
                                 "                <div class=\"detail-qty\">Qty:<input type=\"text\" name=\"qty\" value=\"1\"></div>\n" +
                                 "                <div class=\"detail-id\"><input type=\"hidden\" name=\"itemID\" value=\"" + pb.get(i).getProductID() + "\"></div>\n" +
+                                "                <div class=\"detail-id\"><input type=\"hidden\" name=\"price\" value=\"" + pb.get(i).getPrice() + "\"></div>\n" +
+                                "                <div class=\"detail-id\"><input type=\"hidden\" name=\"name\" value=\"" + pb.get(i).getName() + "\"></div>\n" +
                                 "                <div class=\"detail-down\">" + "$" + pb.get(i).getPrice() + "</div>\n" +
-                                "                <div><a href=\"ShoppingCart?action=add\"><img src=\"img/buy-xxl.png\" width=\"50px\" height=\"50px\"></a></div>\n" +
+                                "                <div><a><button type=\"submit\"><img src=\"img/buy-xxl.png\" width=\"50px\" height=\"50px\"></button></a></div>\n</form>" +
                                 "            </div>\n" +
                                 "        </li>");
                     }

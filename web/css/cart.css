@@ -77,3 +77,32 @@ body {
     width: 50px;
     height: 50px;
 }
+
+.c-table .icon-edit{
+    width: 20px;
+}
+.c-table .icon{
+    width: 20px;
+}
+.c-table .icon-edit button{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.c-address{
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.c-address input[type="text"]{
+    width: 90%;
+}
+
+#nono{
+    color: #f2fadc;
+    width: 90%;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
