@@ -91,13 +91,13 @@ body {
 }
 
 .c-address{
-    width: 60%;
-    display: flex;
-    justify-content: flex-start;
+    width: 100%;
 }
 
 .c-address input[type="text"]{
-    width: 90%;
+    margin-top: 5px;
+    width: 50%;
+    margin-bottom: 15px;
 }
 
 #nono{
@@ -105,4 +105,8 @@ body {
     width: 90%;
     margin-top: 50px;
     margin-bottom: 10px;
+}
+
+#12345{
+    width: 500px;
 }

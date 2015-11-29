@@ -18,6 +18,8 @@
         function addressNoShow() {
             var target = document.querySelector(".c-address");
             target.style.visibility = " hidden";
+            var target = document.querySelector(".c-address > div:nth-child(2) > input:nth-child(1)");
+            target.value=null;
         }
 
         function addressShow() {
@@ -72,30 +74,35 @@
             }
         %>
     </table>
-    <form method="get" action="">
+    <form method="get" action="CreateOrder">
         <div class="c-total">
 
             <div class="d-option">
                 <div id="op1">Self-Pick<input type="radio" value="self-pick" name="deliveryOption"
                                               onchange="addressNoShow();"></div>
-                <div id="op2">Delivery<input type="radio" value="delivery" name="deliveryOption" onchange="addressShow()" checked="checked">
+                <div id="op2">Delivery<input type="radio" value="delivery" name="deliveryOption"
+                                             onchange="addressShow()" checked="checked">
                 </div>
                 <div id="upDate">
                     <button type="submit">Update Shopping Cart</button>
                 </div>
             </div>
             <%
-                int tA = 0;
-                for (int i = 0; i < scb.getX().size(); i++) {
-                    tA += (scb.getX().get(i).getPrice() * scb.getX().get(i).getQty());
+                if (scb != null) {
+                    int tA = 0;
+                    for (int i = 0; i < scb.getX().size(); i++) {
+                        tA += (scb.getX().get(i).getPrice() * scb.getX().get(i).getQty());
+                    }
+                    out.println("<div id=\"total\">Total :$ " + tA + "</div>");
                 }
-                out.println("<div id=\"total\">Total :$ " + tA + "</div>");
             %>
         </div>
         <hr id="nono">
         <div class="c-address">
-            Address : <input type="text">
+            <div>Address :</div>
+            <div #="12345"><input type="text" name="dAddress"></div>
         </div>
+        <div><input type="submit" value="Create Order"></div>
     </form>
 </div>
 
