@@ -16,17 +16,17 @@
 <div class="c-top">
     <div id="head">REGISTER</div>
 </div>
-
-<div class="c-main">
-    <div>Username:<input type="text"></div>
-    <div>Tel:<input type="text"></div>
-    <div>Delivery:<input type="text"></div>
-    <div>Address:<input type="text"></div>
-    <div>Payment:<input type="text"></div>
-    <div><input type="hidden" name="action" value="register"></div>
-    <div>
-        <button type="submit"  id="a-submit">Confirm</button>
+<form action="registerCheck" method="post">
+    <div class="c-main">
+        <div>Name:<input type="text" name="name"></div>
+        <div>Tel:<input type="text" name="tel"></div>
+        <div>Delivery Address:<input type="text" name="deliveryAddress"></div>
+        <div>Payment:<input type="text" name="payment"></div>
+        <div><input type="hidden" name="action" value="register"></div>
+        <div>
+            <button type="submit"  id="a-submit">Confirm</button>
+        </div>
     </div>
-</div>
+</form>
 </body>
 </html>

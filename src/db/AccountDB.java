@@ -40,7 +40,7 @@ public class AccountDB {
             pStmnt = connection.prepareStatement(preQueryStatement);
             pStmnt.setString(1, String.valueOf(clientCount));
             pStmnt.setString(2, createRandomPassword());
-            pStmnt.setString(3, "Client");
+            pStmnt.setString(3, "client");
             pStmnt.setString(4, name);
             pStmnt.setString(5, amount);
             pStmnt.setString(6, tel);

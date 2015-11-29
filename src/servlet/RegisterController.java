@@ -57,7 +57,7 @@ public class RegisterController extends HttpServlet {
             out.println("Register fail!!!");
 
             RequestDispatcher rd;
-            rd = getServletContext().getRequestDispatcher("/register");
+            rd = getServletContext().getRequestDispatcher("/index.jsp");
             rd.forward(request,response);
         }
     }

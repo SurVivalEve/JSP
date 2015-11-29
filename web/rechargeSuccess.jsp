@@ -9,8 +9,9 @@
 <html>
 <head>
     <title></title>
+  <meta http-equiv="Refresh" content="1.5;url=index.jsp">
 </head>
 <body>
-
+<h1>Recharge Sucess!!</h1>
 </body>
 </html>
