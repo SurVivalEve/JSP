@@ -28,9 +28,16 @@ public class VerifyClientController  extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
-        ArrayList<AccountBean> accounts = db.queryAccount();
+        ArrayList<AccountBean> accounts = db.queryNonVerifyAccount();
         if("verify".equalsIgnoreCase(req.getParameter("action")))
             req.setAttribute("accounts", accounts);
+        if("save".equalsIgnoreCase(req.getParameter("action"))) {
+            String[] validationID = req.getParameterValues("ValidationID");
+            if(db.verifyAccount(validationID))
+                req.setAttribute("update", "Y");
+            else
+                req.setAttribute("update", "N");
+        }
         RequestDispatcher rd;
         rd = getServletContext().getRequestDispatcher("/m_client.jsp");
         rd.forward(req,res);
