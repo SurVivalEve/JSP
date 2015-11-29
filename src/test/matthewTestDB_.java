@@ -1,6 +1,7 @@
 package test;
 
 import db.CategoryDB;
+import db.GiftDB;
 import db.OrdersDB;
 import db.ProductDB;
 
@@ -14,8 +15,8 @@ public class matthewTestDB_ {
         String url = "jdbc:mysql://kazechan.ddns.net:3306/jsp";
         String username = "jsp";
         String password = "jsp";
-        OrdersDB db = new OrdersDB(url, username, password);
-        String x = db.getLastID();
-        System.out.println(x);
+        GiftDB db = new GiftDB(url, username, password);
+        ArrayList x = db.searchFunction("between 501 and 1000");
+        System.out.println(x.size());
     }
 }

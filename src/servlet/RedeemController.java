@@ -36,54 +36,62 @@ public class RedeemController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req,resp);
+        doPost(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        if("all".equalsIgnoreCase(action)) {
-            showAllGift(req, resp);
-        } else if ("search".equalsIgnoreCase(action)) {
-            searchGift(req,resp);
-        } else if ("redeem".equalsIgnoreCase(action)) {
-            doRedeem(req,resp);
-        } else if ("redeemProcess".equalsIgnoreCase(action)) {
-            redeemProcess(req,resp);
+        try {
+            String action = req.getParameter("action");
+            if ("all".equalsIgnoreCase(action)) {
+                showAllGift(req, resp);
+            } else if ("search".equalsIgnoreCase(action)) {
+                searchGift(req, resp);
+            } else if ("redeem".equalsIgnoreCase(action)) {
+                doRedeem(req, resp);
+            } else if ("redeemProcess".equalsIgnoreCase(action)) {
+                redeemProcess(req, resp);
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
     }
 
     private void showAllGift(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<GiftBean> giftList = giftDB.queryGift();
-        request.setAttribute("giftList", giftList);
+        request.setAttribute("g1234", giftList);
         RequestDispatcher rd;
         rd = getServletContext().getRequestDispatcher("/redeemGift.jsp");
-        rd.forward(request,response);
+        rd.forward(request, response);
     }
 
     private void searchGift(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        ArrayList<GiftBean> gbArrayList = giftDB.searchFunction(request.getParameter("range"));
+        request.setAttribute("g1234", gbArrayList);
+        RequestDispatcher rd;
+        rd = getServletContext().getRequestDispatcher("/redeemGift.jsp");
+        rd.forward(request, response);
     }
 
-    private void redeemProcess(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+    private void redeemProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String giftID = request.getParameter("giftID");
         GiftBean giftBean = giftDB.queryByID(giftID);
-        request.setAttribute("giftInfo",giftBean);
+        request.setAttribute("giftInfo", giftBean);
         RequestDispatcher rd;
         rd = getServletContext().getRequestDispatcher("/redeemProcess.jsp");
-        rd.forward(request,response);
+        rd.forward(request, response);
     }
 
     private void doRedeem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String giftID = request.getParameter("giftID");
         String targetURL = null;
         HttpSession session = request.getSession(false);
-        if(session != null) {
-                AccountBean loginClient = (AccountBean) session.getAttribute("userInfo");
-                int o = accountDB.queryByID(loginClient.getId()).getBounsPoint();
-                int n = giftDB.queryByID(giftID).getRequireBonus();
-                int checkBonus = o - n;
-                if (checkBonus < 0) {
+        if (session != null) {
+            AccountBean loginClient = (AccountBean) session.getAttribute("userInfo");
+            int o = accountDB.queryByID(loginClient.getId()).getBounsPoint();
+            int n = giftDB.queryByID(giftID).getRequireBonus();
+            int checkBonus = o - n;
+            if (checkBonus < 0) {
                 targetURL = "redeemFail.jsp";
             } else {
                 accountDB.updateAccountBounsPoint(loginClient.getId(), checkBonus);
@@ -95,6 +103,6 @@ public class RedeemController extends HttpServlet {
 
         RequestDispatcher rd;
         rd = getServletContext().getRequestDispatcher("/" + targetURL);
-        rd.forward(request,response);
+        rd.forward(request, response);
     }
 }

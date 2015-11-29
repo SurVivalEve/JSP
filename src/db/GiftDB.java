@@ -14,7 +14,7 @@ public class GiftDB {
     private String dbUser = "";
     private String dbPassword = "";
 
-    public GiftDB(String dburl, String dbUser, String dbPassword){
+    public GiftDB(String dburl, String dbUser, String dbPassword) {
         this.dburl = dburl;
         this.dbUser = dbUser;
         this.dbPassword = dbPassword;
@@ -29,11 +29,11 @@ public class GiftDB {
         return DriverManager.getConnection(dburl, dbUser, dbPassword);
     }
 
-    public boolean addRecord(String id, String name, String picturePath, int requireBonus){
+    public boolean addRecord(String id, String name, String picturePath, int requireBonus) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatement = "INSERT INTO gift VALUES (?,?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
@@ -42,13 +42,13 @@ public class GiftDB {
             pStmnt.setString(3, picturePath);
             pStmnt.setInt(4, requireBonus);
             int rowCount = pStmnt.executeUpdate();
-            if (rowCount>=1){
+            if (rowCount >= 1) {
                 isSuccess = true;
             }
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -58,11 +58,11 @@ public class GiftDB {
         return isSuccess;
     }
 
-    public GiftBean queryByID(String id){
+    public GiftBean queryByID(String id) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         GiftBean gb = null;
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatement = "SELECT * FROM gift WHERE giftID=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
@@ -78,7 +78,7 @@ public class GiftDB {
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -88,18 +88,20 @@ public class GiftDB {
         return gb;
     }
 
-    public ArrayList<GiftBean> queryGift(){
+
+    public ArrayList<GiftBean> searchFunction(String sq) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
+        String sql = "SELECT * FROM gift WHERE requireBonus ";
 
         ArrayList<GiftBean> gbs = new ArrayList<GiftBean>();
-        try{
+        try {
+            sql += sq;
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM gift";
+            String preQueryStatement = sql;
             pStmnt = cnnct.prepareStatement(preQueryStatement);
-            ResultSet rs = null;
-            rs = pStmnt.executeQuery();
-            while(rs.next()){
+            ResultSet rs = pStmnt.executeQuery();
+            while (rs.next()) {
                 GiftBean gb = new GiftBean();
                 gb.setId(rs.getString("giftID"));
                 gb.setName(rs.getString("name"));
@@ -110,7 +112,7 @@ public class GiftDB {
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -120,22 +122,54 @@ public class GiftDB {
         return gbs;
     }
 
-    public boolean delRecord(String id){
+    public ArrayList<GiftBean> queryGift() {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+
+        ArrayList<GiftBean> gbs = new ArrayList<GiftBean>();
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM gift";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            while (rs.next()) {
+                GiftBean gb = new GiftBean();
+                gb.setId(rs.getString("giftID"));
+                gb.setName(rs.getString("name"));
+                gb.setPicturePath(rs.getString("picturePath"));
+                gb.setRequireBonus(rs.getInt("requireBonus"));
+                gbs.add(gb);
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return gbs;
+    }
+
+    public boolean delRecord(String id) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatement = "DELETE FROM gift WHERE giftID=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, id);
-            if (pStmnt.execute()){
+            if (pStmnt.execute()) {
                 isSuccess = true;
             }
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }
@@ -145,11 +179,11 @@ public class GiftDB {
         return isSuccess;
     }
 
-    public boolean editRecord(GiftBean gb){
+    public boolean editRecord(GiftBean gb) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatement = "UPDATE gift SET name=?, picturePath=?, requireBonus=? WHERE giftID=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
@@ -157,13 +191,13 @@ public class GiftDB {
             pStmnt.setString(2, gb.getPicturePath());
             pStmnt.setInt(3, gb.getRequireBonus());
             pStmnt.setString(4, gb.getId());
-            if (pStmnt.execute()){
+            if (pStmnt.execute()) {
                 isSuccess = true;
             }
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null){
+            while (ex != null) {
                 ex.printStackTrace();
                 ex = ex.getNextException();
             }

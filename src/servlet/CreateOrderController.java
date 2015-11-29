@@ -62,7 +62,7 @@ public class CreateOrderController extends HttpServlet {
             oldBounsPoint = Dadb.queryByID(adb.getId()).getBounsPoint();
             bounsPoint = 100 * (totalAmount / 1000);
 
-            Dadb.updateAccountAmount(adb.getId(), (accAmount - totalAmount));
+            Dadb.updateAccountAmount2(adb.getId(), (accAmount - totalAmount));
             Dadb.updateAccountBounsPoint(adb.getId(), (bounsPoint + oldBounsPoint));
 
             RequestDispatcher rd;
