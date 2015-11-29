@@ -85,6 +85,35 @@ public class CategoryDB {
         return cb;
     }
 
+    public CategoryBean queryByName(String categoryName){
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        CategoryBean cb = null;
+        try{
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM category WHERE name=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, categoryName);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            if (rs.next()){
+                cb = new CategoryBean();
+                cb.setCategoryID(rs.getString("categoryID"));
+                cb.setName(categoryName);
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null){
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return cb;
+    }
+
     public ArrayList<CategoryBean> queryCategory(){
         Connection cnnct = null;
         PreparedStatement pStmnt = null;

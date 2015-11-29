@@ -151,6 +151,13 @@ p {
     margin-right:auto;
 }
 
+#add_table{
+    border: 0px;
+    table-layout: fixed;
+    margin-left:auto;
+    margin-right:auto;
+}
+
 #message_table th{
     border: 1px solid black;
     overflow: hidden;
@@ -161,6 +168,16 @@ p {
     border: 1px solid black;
     overflow: hidden;
     text-align: center;
+}
+
+#message_table th a{
+    color: royalblue;
+    text-decoration: none;
+}
+
+#message_table th a:hover{
+    color: red;
+    text-decoration: underline;
 }
 
 #message_table td a{
