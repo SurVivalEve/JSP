@@ -243,7 +243,7 @@ public class OrdersDB {
             cnnct = getConnection();
             //update orders table
             String preQueryStatement;
-            for(int i=0; i<status.length; i++) {
+            for (int i = 0; i < status.length; i++) {
                 preQueryStatement = "UPDATE orders SET status=?, cancelled=? WHERE orderID=?";
                 pStmnt = cnnct.prepareStatement(preQueryStatement);
                 pStmnt.setString(1, status[i]);
@@ -284,7 +284,7 @@ public class OrdersDB {
                 pStmnt.setNull(4, java.sql.Types.VARCHAR);
             else
                 pStmnt.setString(4, ob.getDeliveryAddress());
-            if (ob.getPickupTime() == null) 
+            if (ob.getPickupTime() == null)
                 pStmnt.setNull(5, java.sql.Types.DATE);
             else
                 pStmnt.setDate(5, new java.sql.Date(ob.getPickupTime().getTime()));
@@ -321,5 +321,33 @@ public class OrdersDB {
             ex.printStackTrace();
         }
         return isSuccess;
+    }
+
+    public String getLastID() {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        String x=null;
+        try {
+            cnnct = getConnection();
+            //update orders table
+            String preQueryStatement;
+            preQueryStatement = "SELECT DISTINCT orderID FROM orderline ORDER BY orderID ASC";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            rs.last();
+            x =rs.getString("orderID");
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        int t = Integer.parseInt(x.substring(1,4));
+        t++;
+        return "O"+String.format("%03d",t);
     }
 }

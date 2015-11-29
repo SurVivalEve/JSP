@@ -14,8 +14,8 @@ public class matthewTestDB_ {
         String url = "jdbc:mysql://kazechan.ddns.net:3306/jsp";
         String username = "jsp";
         String password = "jsp";
-        ProductDB db = new ProductDB(url, username, password);
-        ArrayList x = db.queryByCategory("C001");
-        System.out.println(x.size());
+        OrdersDB db = new OrdersDB(url, username, password);
+        String x = db.getLastID();
+        System.out.println(x);
     }
 }
