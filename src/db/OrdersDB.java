@@ -91,15 +91,46 @@ public class OrdersDB {
         ArrayList<OrdersBean> orderList = new ArrayList<OrdersBean>();
         try {
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM orders WHERE clientID=? AND status <> 'Delivered'";
+            String preQueryStatement = "SELECT * FROM orders WHERE clientID=? AND status = 'Process' ";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, clientID);
             ResultSet rs = pStmnt.executeQuery();
             while (rs.next()) {
                 ob = new OrdersBean();
-                ob.setOrderID(rs.getString(1));
-                ob.setClient();
+                ob.setOrderID(rs.getString("orderID"));
 
+                //set account detail
+                AccountDB accountDB = new AccountDB(dburl, dbUser, dbPassword);
+                AccountBean ab = accountDB.queryByID(rs.getString("clientID"));
+                ob.setClient(ab);
+
+                ob.setOrderDate(new java.util.Date(rs.getTimestamp("orderDate").getTime()));
+                ob.setStatus(rs.getString("status"));
+                ob.setTotalAmount(rs.getInt("totalAmount"));
+                ob.setDeliveryAddress(rs.getString("deliveryAddress"));
+                if (rs.getDate("pickupTime") != null)
+                    ob.setPickupTime(new java.util.Date(rs.getDate("pickupTime").getTime()));
+                else
+                    ob.setPickupTime(null);
+                if (rs.getString("cancelled").equalsIgnoreCase("Y"))
+                    ob.setCancelled(true);
+                else
+                    ob.setCancelled(false);
+
+                preQueryStatement = "SELECT * FROM orderline WHERE orderID=?";
+                pStmnt = cnnct.prepareStatement(preQueryStatement);
+                pStmnt.setString(1, rs.getString("orderID"));
+                rs = pStmnt.executeQuery();
+                ArrayList<ProductBean> products = new ArrayList<ProductBean>();
+                ProductDB prodDB = new ProductDB(dburl, dbUser, dbPassword);
+                while (rs.next()) {
+                    //set productBean
+                    ProductBean pb = prodDB.queryByID(rs.getString("productID"));
+                    pb.setQty(rs.getInt("qty"));
+                    products.add(pb);
+                }
+                ob.setProducts(products);
+                orderList.add(ob);
             }
             pStmnt.close();
             cnnct.close();

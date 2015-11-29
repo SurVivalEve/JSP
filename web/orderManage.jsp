@@ -1,4 +1,6 @@
 <%@ page import="bean.OrdersBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%--
   Created by IntelliJ IDEA.
   User: Sur.Vival
@@ -13,7 +15,8 @@
     <title></title>
 </head>
 <%
-    OrdersBean orderList = (OrdersBean) session.getAttribute("orderList");
+    ArrayList<OrdersBean> orderList = (ArrayList<OrdersBean>) session.getAttribute("orderList");
+    out.print(orderList.size());
 %>
 <body>
 <div class="tg-wrap">
@@ -39,15 +42,29 @@
             <td class="tg-h1ln">Pick-up Time<br></td>
             <td class="tg-h1ln">Cancelled</td>
         </tr>
-        <tr>
-            <td class="tg-saa1"><br></td>
-            <td class="tg-saa1"><br></td>
-            <td class="tg-ry0e"></td>
-            <td class="tg-ry0e"></td>
-            <td class="tg-ry0e"></td>
-            <td class="tg-ry0e"></td>
-            <td class="tg-saa1"></td>
-        </tr>
+        <%
+            SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            SimpleDateFormat sf2 = new SimpleDateFormat("dd-MM-yyyy");
+            for (int i = 0; i < orderList.size(); i++) {
+                out.println("<tr>");
+                out.println("<td class=\"tg-saa1\">"+orderList.get(i).getOrderID()+"</td>");
+                out.println("<td class=\"tg-saa1\">"+orderList.get(i).getClient().getName()+"</td>");
+                out.println("<td class=\"tg-ry0e\">"+sf.format(orderList.get(i).getOrderDate())+"</td>");
+                out.println("<td class=\"tg-ry0e\">"+orderList.get(i).getStatus()+"</td>");
+
+                if(orderList.get(i).getDeliveryAddress()==null)
+                    out.println("<td class=\"tg-ry0e\"></td>");
+                else
+                    out.println("<td class=\"tg-ry0e\">"+orderList.get(i).getDeliveryAddress()+"</td>");
+
+                if(orderList.get(i).getPickupTime()==null)
+                    out.println("<td class=\"tg-ry0e\"></td>");
+                else
+                    out.println("<td class=\"tg-ry0e\">"+sf2.format(orderList.get(i).getPickupTime())+"</td>");
+
+                out.println("<td class=\"tg-saa1\">"+orderList.get(i).getCancelled()+"</td>");
+            }
+        %>
     </table>
 </div>
 </body>
