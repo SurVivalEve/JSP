@@ -23,25 +23,30 @@
             <form method="post" action="m_client?action=save">
                 <%
                     ArrayList<AccountBean> abs = (ArrayList<AccountBean>) request.getAttribute("accounts");
-                    out.println("<table>");
-                    out.println("<colgroup><col style='width:10%'><col style='width:10%'><col style='width:20'>");
-                    out.println("<col style='width:10%'><col style='width:40%'><col style='width:10%'></colgroup>");
-                    out.println("<tr><th>ID</th><th>Password</th><th>Name</th><th>Tel</th><th>Address</th><th>Validation</th></tr>");
-                    for(int i=0; i<abs.size(); i++) {
-                        if(abs.get(i).isValidation()!=null){
-                            if (abs.get(i).isValidation().equalsIgnoreCase("N")) {
-                                out.println("<tr><td>" + abs.get(i).getId() + "</td>");
-                                out.println("<td>" + abs.get(i).getPassword() + "</td>");
-                                out.println("<td>" + abs.get(i).getName() + "</td>");
-                                out.println("<td>" + abs.get(i).getTel() + "</td>");
-                                out.println("<td>" + abs.get(i).getAddress() + "</td>");
-                                out.println("<td><input type='checkbox' name='Validation' value='"+abs.get(i).getId()+"'/></td>");
+                    if(abs.size()!=0){
+                        out.println("<table>");
+                        out.println("<colgroup><col style='width:10%'><col style='width:10%'><col style='width:20'>");
+                        out.println("<col style='width:10%'><col style='width:40%'><col style='width:10%'></colgroup>");
+                        out.println("<tr><th>ID</th><th>Password</th><th>Name</th><th>Tel</th><th>Address</th><th>Validation</th></tr>");
+                        for(int i=0; i<abs.size(); i++) {
+                            if(abs.get(i).isValidation()!=null){
+                                if (abs.get(i).isValidation().equalsIgnoreCase("N")) {
+                                    out.println("<tr><td>" + abs.get(i).getId() + "</td>");
+                                    out.println("<td>" + abs.get(i).getPassword() + "</td>");
+                                    out.println("<td>" + abs.get(i).getName() + "</td>");
+                                    out.println("<td>" + abs.get(i).getTel() + "</td>");
+                                    out.println("<td>" + abs.get(i).getAddress() + "</td>");
+                                    out.println("<td><input type='checkbox' name='Validation' value='"+abs.get(i).getId()+"'/></td>");
+                                }
                             }
                         }
+                        out.println("</table>");
+                    } else {
+                        out.println("<h1>No account is waited for verify.</h1>");
                     }
-                    out.println("</table>");
                 %>
                 <input type="submit" value="Save"/>
+                <input type="reset" value="Cancel"/>
             </form>
         </div>
     </div>
