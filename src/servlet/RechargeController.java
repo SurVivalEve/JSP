@@ -51,11 +51,12 @@ public class RechargeController extends HttpServlet {
             db.updateAccountAmount(bean.getId(), Integer.parseInt(amount));
             targetURL = "rechargeSuccess.jsp";
         } else {
-            targetURL = "registerFail.jsp";
+            targetURL = "recharge.jsp";
         }
-        RequestDispatcher rd;
-        rd = getServletContext().getRequestDispatcher("/" + targetURL);
-        rd.forward(request,response);
+//        RequestDispatcher rd;
+//        rd = getServletContext().getRequestDispatcher("/" + targetURL);
+//        rd.forward(request,response);
+        response.sendRedirect(targetURL);
 
     }
 }

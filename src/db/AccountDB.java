@@ -135,7 +135,7 @@ public class AccountDB {
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            AccountBean client = queryByAmount(id);
+            AccountBean client = queryByID(id);
             String preQueryStatement = "UPDATE account SET amount = ? WHERE id = ? ";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setInt(1,client.getAmount()+amount);
@@ -194,19 +194,19 @@ public class AccountDB {
         return ab;
     }
 
-    public AccountBean queryByAmount(String id) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        AccountBean ab = null;
+    public ArrayList<AccountBean> queryNonVerifyAccount(){
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        ArrayList<AccountBean> abs = new ArrayList<AccountBean>();
         try{
-            connection = getConnection();
-            String preQueryStatement = "SELECT * FROM account WHERE id=?";
-            preparedStatement = connection.prepareStatement(preQueryStatement);
-            preparedStatement.setString(1, id);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            if (rs.next()) {
-                ab = new AccountBean();
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM account where validation=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1,"N");
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            while(rs.next()){
+                AccountBean ab = new AccountBean();
                 ab.setId(rs.getString("id"));
                 ab.setPassword(rs.getString("password"));
                 ab.setUserType(rs.getString("userType"));
@@ -216,9 +216,10 @@ public class AccountDB {
                 ab.setAddress(rs.getString("address"));
                 ab.setBounsPoint(rs.getInt("bounsPoint"));
                 ab.setValidation(rs.getString("validation"));
+                abs.add(ab);
             }
-            preparedStatement.close();
-            connection.close();
+            pStmnt.close();
+            cnnct.close();
         }catch(SQLException ex) {
             while(ex != null){
                 ex.printStackTrace();
@@ -227,7 +228,36 @@ public class AccountDB {
         }catch(IOException ex) {
             ex.printStackTrace();
         }
-        return ab;
+        return abs;
+    }
+
+    public boolean verifyAccount(String[] id) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        boolean isSuccess = false;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement;
+            for(int i=0; i<id.length; i++) {
+                preQueryStatement = "UPDATE account SET validation = ? WHERE id = ? ";
+                pStmnt = cnnct.prepareStatement(preQueryStatement);
+                pStmnt.setString(1, "Y");
+                pStmnt.setString(2, id[i]);
+                pStmnt.executeUpdate();
+            }
+            isSuccess = true;
+            pStmnt.close();
+            cnnct.close();
+
+        } catch (SQLException ex) {
+            while(ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
     }
 
     public ArrayList<AccountBean> queryAccount() {
