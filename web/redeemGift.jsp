@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css" href="css/common.css">
 <html>
 <head>
-    <title></title>
+    <title>RedeemGift</title>
 </head>
 <body>
 <body>

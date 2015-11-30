@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home</title>
 </head>
 <body>
 <jsp:include page="navigation.jsp"></jsp:include>

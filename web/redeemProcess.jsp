@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>Redeem Process</title>
 </head>
 <link rel="stylesheet" type="text/css" href="css/productlayout.css">
 <link rel="stylesheet" type="text/css" href="css/common.css">

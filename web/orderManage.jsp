@@ -2,6 +2,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="db.OrdersDB" %>
+<%@ page import="bean.AccountBean" %>
 <%--
   Created by IntelliJ IDEA.
   User: Sur.Vival
@@ -13,10 +14,13 @@
 <link rel="stylesheet" type="text/css" href="css/profile.css">
 <html>
 <head>
-    <title></title>
+    <title>Order Manage</title>
 </head>
 <%
     ArrayList<OrdersBean> orderList = (ArrayList<OrdersBean>) session.getAttribute("orderList");
+    AccountBean client = (AccountBean) session.getAttribute("userInfo");
+    if(client==null)
+        throw new NullPointerException();
 
 %>
 <body>
@@ -27,6 +31,7 @@
             <col style="width: 135px">
             <col style="width: 94px">
             <col style="width: 200px">
+            <col style="width: 120px">
             <col style="width: 185px">
             <col style="width: 129px">
             <col style="width: 92px">
@@ -40,6 +45,7 @@
             <td class="tg-h1ln">Client Name<br></td>
             <td class="tg-h1ln">Date</td>
             <td class="tg-h1ln">Status</td>
+            <td class="tg-h1ln">Total Amount</td>
             <td class="tg-h1ln">Delivery Address<br></td>
             <td class="tg-h1ln">Pick-up Time<br></td>
             <td class="tg-h1ln">Cancelled</td>
@@ -52,10 +58,11 @@
                 OrdersDB orderDB = new OrdersDB("jdbc:mysql://kazechan.ddns.net:3306/jsp", "jsp", "jsp");
                 ArrayList<OrdersBean> newOrderList = orderDB.queryMyOrders(orderList.get(i).getClient().getId());
                 out.println("<tr>");
-                out.println("<td class=\"tg-jsj9\">"+orderList.get(i).getOrderID()+"</td>");
+                out.println("<td class=\"tg-jsj9\"><a href=\"profile?action=orderDetails&orderID="+orderList.get(i).getOrderID()+"\"</a>"+orderList.get(i).getOrderID()+"</td>");
                 out.println("<td class=\"tg-jsj9\">"+orderList.get(i).getClient().getName()+"</td>");
                 out.println("<td class=\"tg-jsj9\">"+sf.format(orderList.get(i).getOrderDate())+"</td>");
                 out.println("<td class=\"tg-jsj9\">"+orderList.get(i).getStatus()+"</td>");
+                out.println("<td class=\"tg-jsj9\">"+ orderList.get(i).getTotalAmount()+"</td>");
 
                 if(orderList.get(i).getDeliveryAddress()==null)
                     out.println("<td class=\"tg-jsj9\"></td>");

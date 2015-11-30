@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>Redeem Fail</title>
 </head>
 <body>
 <h1>Not enough amount!! Please recharge first!!</h1>

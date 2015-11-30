@@ -9,8 +9,8 @@
 <%@ page isErrorPage="true" %>
 <html>
 <head>
-    <title></title>
-    <meta http-equiv="Refresh" content="2;url=index.jsp">
+    <title>Not Logged In Yet</title>
+    <meta http-equiv="Refresh" content="1;url=index.jsp">
 </head>
 <body>
 <%

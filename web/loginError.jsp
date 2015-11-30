@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>Login Error</title>
 </head>
 <body>
 <p><b>Incorrect Password or Non-Verifies Account</b></p>

@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>Profile</title>
 </head>
 <link rel="stylesheet" type="text/css" href="css/profile.css">
 <script src="profile.js" language="javascript"></script>

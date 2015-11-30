@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>Redeem Success</title>
     <meta http-equiv="Refresh" content="1;url=index.jsp">
 </head>
 <body>

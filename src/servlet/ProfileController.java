@@ -51,6 +51,20 @@ public class ProfileController extends HttpServlet {
             changeStatus(req,resp);
         } else if ("orderHistory".equalsIgnoreCase(action)) {
             showOrdersHistory(req, resp);
+        } else if ("orderDetails".equalsIgnoreCase(action)) {
+            showOrdersDetails(req, resp);
+        }
+    }
+
+    private void showOrdersDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String orderID = request.getParameter("orderID");
+        OrdersBean ordersBean =  ordersDB.queryByID(orderID);
+        HttpSession session = request.getSession(false);
+        if(session != null) {
+            session.setAttribute("order", ordersBean);
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/orderProductList.jsp");
+            rd.forward(request, response);
         }
     }
 

@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Shopping Cart</title>
     <link rel="stylesheet" type="text/css" href="css/cart.css">
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <script type="text/javascript">

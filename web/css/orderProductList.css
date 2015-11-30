@@ -1,73 +1,3 @@
-#header {
-    color: #FFF;
-    text-align: center;
-    background-color: black;
-    padding: 5px;
-}
-
-#nav {
-    line-height: 30px;
-    background-color: #EEE;
-    height: 78%;
-    width: 11%;
-    float: left;
-    padding: 10px;
-}
-
-#nav a {
-    text-decoration: none;
-    color: black;
-}
-
-#section {
-    width: 85%;
-    float: left;
-    padding: 10px;
-}
-
-#footer {
-    background-color: #000;
-    color: #FFF;
-    clear: both;
-    text-align: center;
-    padding: 7px;
-    height: 32px;
-}
-
-#myIframe {
-    width: 102%;
-    height: 77%;
-}
-
-/* Personal Details */
-
-.Data-Content {
-    width: 100%; /* 表單寬度 */
-    line-height: 40px;
-}
-
-.Data-Title {
-    float: left;
-    width: 10%;
-    margin-right: 0px;
-}
-
-.Data-Items {
-    float: left;
-    width: 25%;
-}
-
-.AlignRight {
-    text-align: right;
-}
-
-.Data-Items input {
-    margin: 3%;
-}
-
-/* Order Manage */
-
-
 .tg {
     border-collapse: collapse;
     border-spacing: 0;
@@ -124,12 +54,10 @@
     font-family: "Comic Sans MS", cursive, sans-serif !important;;
     text-align: center;
     vertical-align: top
-
-
 }
 
-.tg .tg-jsj9 a{
-    text-decoration: none;
+.tg .tg-yw4l {
+    vertical-align: top
 }
 
 @media screen and (max-width: 767px) {

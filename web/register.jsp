@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Register</title>
     <link rel="stylesheet" type="text/css" href="css/register_css.css">
 </head>
 <body>

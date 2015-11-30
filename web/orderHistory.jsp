@@ -11,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>Order History</title>
 </head>
 <body>
 <link rel="stylesheet" type="text/css" href="css/profile.css">

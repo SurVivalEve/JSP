@@ -84,6 +84,70 @@ public class OrdersDB {
         return isSuccess;
     }
 
+    public ArrayList<OrdersBean> queryMyOrdersWithNoCheck(String clientID) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+
+        ArrayList<OrdersBean> obs = new ArrayList<OrdersBean>();
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM orders WHERE clientID=?";
+
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1,clientID);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            while (rs.next()) {
+
+                OrdersBean ob = new OrdersBean();
+                ob.setOrderID(rs.getString("orderID"));
+
+                //set account detail
+                AccountDB accountDB = new AccountDB(dburl, dbUser, dbPassword);
+                AccountBean ab = accountDB.queryByID(rs.getString("clientID"));
+                ob.setClient(ab);
+
+                ob.setOrderDate(new java.util.Date(rs.getTimestamp("orderDate").getTime()));
+                ob.setStatus(rs.getString("status"));
+                ob.setTotalAmount(rs.getInt("totalAmount"));
+                ob.setDeliveryAddress(rs.getString("deliveryAddress"));
+                if (rs.getDate("pickupTime") != null)
+                    ob.setPickupTime(new java.util.Date(rs.getDate("pickupTime").getTime()));
+                else
+                    ob.setPickupTime(null);
+                if (rs.getString("cancelled").equalsIgnoreCase("Y"))
+                    ob.setCancelled(true);
+                else
+                    ob.setCancelled(false);
+
+                String preQueryStatement2 = "SELECT * FROM orderline WHERE orderID=?";
+                PreparedStatement pStmnt2 = cnnct.prepareStatement(preQueryStatement2);
+                pStmnt2.setString(1, rs.getString("orderID"));
+                ResultSet rs2 = pStmnt2.executeQuery();
+                ArrayList<ProductBean> products = new ArrayList<ProductBean>();
+                ProductDB prodDB = new ProductDB(dburl, dbUser, dbPassword);
+                while (rs2.next()) {
+                    //set productBean
+                    ProductBean pb = prodDB.queryByID(rs2.getString("productID"));
+                    pb.setQty(rs2.getInt("qty"));
+                    products.add(pb);
+                }
+                ob.setProducts(products);
+                obs.add(ob);
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return obs;
+    }
+
     public ArrayList<OrdersBean> queryMyOrders(String clientID) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;

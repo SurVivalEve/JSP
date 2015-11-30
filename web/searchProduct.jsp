@@ -14,7 +14,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Product Page</title>
     <link rel="stylesheet" type="text/css" href="css/productlayout.css">
     <link rel="stylesheet" type="text/css" href="css/common.css">
 </head>

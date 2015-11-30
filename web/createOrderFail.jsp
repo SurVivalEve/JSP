@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Create Order Fail</title>
     <meta http-equiv="Refresh" content="3;url=shoppingCart.jsp">
 </head>
 <body>
