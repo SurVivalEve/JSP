@@ -95,7 +95,7 @@
     </div>
 
     <div class="logo">
-        <a style="width: 100%" href="index.jsp"><img src="img/backgroundHead.jpg" height="100px" width="100%"></a>
+        <a href="index.jsp"><img src="img/pencil_PNG3860.png" height="100px"></a>
 
         <div class="c-client">
             <%
