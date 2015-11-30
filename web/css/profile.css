@@ -67,6 +67,12 @@
 
 /* Order Manage */
 
+<
+style type
+
+=
+"text/css"
+>
 .tg {
     border-collapse: collapse;
     border-spacing: 0;
@@ -118,16 +124,10 @@
     vertical-align: top
 }
 
-.tg .tg-saa1 {
+.tg .tg-jsj9 {
     font-size: 16px;
     font-family: "Comic Sans MS", cursive, sans-serif !important;;
-    vertical-align: top
-}
-
-.tg .tg-ry0e {
-    font-size: 16px;
-    font-family: "Comic Sans MS", cursive, sans-serif !important;;
-    text-align: right;
+    text-align: center;
     vertical-align: top
 }
 

@@ -16,7 +16,6 @@
 </head>
 <%
     ArrayList<OrdersBean> orderList = (ArrayList<OrdersBean>) session.getAttribute("orderList");
-    out.print(orderList.size());
 %>
 <body>
 <div class="tg-wrap">
@@ -29,9 +28,10 @@
             <col style="width: 185px">
             <col style="width: 129px">
             <col style="width: 92px">
+            <col style="width: 90px">
         </colgroup>
         <tr>
-            <th class="tg-wjqe" colspan="7">Order Details<br></th>
+            <th class="tg-wjqe" colspan="8">Order Details<br></th>
         </tr>
         <tr>
             <td class="tg-h1ln">ID<br></td>
@@ -41,28 +41,30 @@
             <td class="tg-h1ln">Delivery Address<br></td>
             <td class="tg-h1ln">Pick-up Time<br></td>
             <td class="tg-h1ln">Cancelled</td>
+            <td class="tg-h1ln"></td>
         </tr>
         <%
             SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             SimpleDateFormat sf2 = new SimpleDateFormat("dd-MM-yyyy");
             for (int i = 0; i < orderList.size(); i++) {
                 out.println("<tr>");
-                out.println("<td class=\"tg-saa1\">"+orderList.get(i).getOrderID()+"</td>");
-                out.println("<td class=\"tg-saa1\">"+orderList.get(i).getClient().getName()+"</td>");
-                out.println("<td class=\"tg-ry0e\">"+sf.format(orderList.get(i).getOrderDate())+"</td>");
-                out.println("<td class=\"tg-ry0e\">"+orderList.get(i).getStatus()+"</td>");
+                out.println("<td class=\"tg-jsj9\">"+orderList.get(i).getOrderID()+"</td>");
+                out.println("<td class=\"tg-jsj9\">"+orderList.get(i).getClient().getName()+"</td>");
+                out.println("<td class=\"tg-jsj9\">"+sf.format(orderList.get(i).getOrderDate())+"</td>");
+                out.println("<td class=\"tg-jsj9\">"+orderList.get(i).getStatus()+"</td>");
 
                 if(orderList.get(i).getDeliveryAddress()==null)
-                    out.println("<td class=\"tg-ry0e\"></td>");
+                    out.println("<td class=\"tg-jsj9\"></td>");
                 else
-                    out.println("<td class=\"tg-ry0e\">"+orderList.get(i).getDeliveryAddress()+"</td>");
+                    out.println("<td class=\"tg-jsj9\">"+orderList.get(i).getDeliveryAddress()+"</td>");
 
                 if(orderList.get(i).getPickupTime()==null)
-                    out.println("<td class=\"tg-ry0e\"></td>");
+                    out.println("<td class=\"tg-jsj9\"></td>");
                 else
-                    out.println("<td class=\"tg-ry0e\">"+sf2.format(orderList.get(i).getPickupTime())+"</td>");
+                    out.println("<td class=\"tg-jsj9\">"+sf2.format(orderList.get(i).getPickupTime())+"</td>");
 
-                out.println("<td class=\"tg-saa1\">"+orderList.get(i).getCancelled()+"</td>");
+                out.println("<td class=\"tg-jsj9\">"+orderList.get(i).getCancelled()+"</td>");
+                out.println("<td class=\"tg-jsj9\"><a href=\"profile?action=changeStatus&orderID="+orderList.get(i).getOrderID()+"\">Cancel</a></td>");
             }
         %>
     </table>

@@ -87,16 +87,19 @@ public class OrdersDB {
     public ArrayList<OrdersBean> queryMyOrders(String clientID) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
-        OrdersBean ob = null;
-        ArrayList<OrdersBean> orderList = new ArrayList<OrdersBean>();
+
+        ArrayList<OrdersBean> obs = new ArrayList<OrdersBean>();
         try {
             cnnct = getConnection();
             String preQueryStatement = "SELECT * FROM orders WHERE clientID=? AND status = 'Process' ";
+
             pStmnt = cnnct.prepareStatement(preQueryStatement);
-            pStmnt.setString(1, clientID);
-            ResultSet rs = pStmnt.executeQuery();
+            pStmnt.setString(1,clientID);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
             while (rs.next()) {
-                ob = new OrdersBean();
+
+                OrdersBean ob = new OrdersBean();
                 ob.setOrderID(rs.getString("orderID"));
 
                 //set account detail
@@ -117,20 +120,20 @@ public class OrdersDB {
                 else
                     ob.setCancelled(false);
 
-                preQueryStatement = "SELECT * FROM orderline WHERE orderID=?";
-                pStmnt = cnnct.prepareStatement(preQueryStatement);
-                pStmnt.setString(1, rs.getString("orderID"));
-                rs = pStmnt.executeQuery();
+                String preQueryStatement2 = "SELECT * FROM orderline WHERE orderID=?";
+                PreparedStatement pStmnt2 = cnnct.prepareStatement(preQueryStatement2);
+                pStmnt2.setString(1, rs.getString("orderID"));
+                ResultSet rs2 = pStmnt2.executeQuery();
                 ArrayList<ProductBean> products = new ArrayList<ProductBean>();
                 ProductDB prodDB = new ProductDB(dburl, dbUser, dbPassword);
-                while (rs.next()) {
+                while (rs2.next()) {
                     //set productBean
-                    ProductBean pb = prodDB.queryByID(rs.getString("productID"));
-                    pb.setQty(rs.getInt("qty"));
+                    ProductBean pb = prodDB.queryByID(rs2.getString("productID"));
+                    pb.setQty(rs2.getInt("qty"));
                     products.add(pb);
                 }
                 ob.setProducts(products);
-                orderList.add(ob);
+                obs.add(ob);
             }
             pStmnt.close();
             cnnct.close();
@@ -142,7 +145,74 @@ public class OrdersDB {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return orderList;
+        return obs;
+    }
+
+    public ArrayList<OrdersBean> queryMyOrdersHistory(String clientID) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+
+        ArrayList<OrdersBean> obs = new ArrayList<OrdersBean>();
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM orders WHERE clientID=? ORDER BY orderID DESC ";
+
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1,clientID);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            int count = 0;
+            while (rs.next()) {
+                count++;
+                if(count > 10)
+                    break;
+                OrdersBean ob = new OrdersBean();
+                ob.setOrderID(rs.getString("orderID"));
+
+                //set account detail
+                AccountDB accountDB = new AccountDB(dburl, dbUser, dbPassword);
+                AccountBean ab = accountDB.queryByID(rs.getString("clientID"));
+                ob.setClient(ab);
+
+                ob.setOrderDate(new java.util.Date(rs.getTimestamp("orderDate").getTime()));
+                ob.setStatus(rs.getString("status"));
+                ob.setTotalAmount(rs.getInt("totalAmount"));
+                ob.setDeliveryAddress(rs.getString("deliveryAddress"));
+                if (rs.getDate("pickupTime") != null)
+                    ob.setPickupTime(new java.util.Date(rs.getDate("pickupTime").getTime()));
+                else
+                    ob.setPickupTime(null);
+                if (rs.getString("cancelled").equalsIgnoreCase("Y"))
+                    ob.setCancelled(true);
+                else
+                    ob.setCancelled(false);
+
+                String preQueryStatement2 = "SELECT * FROM orderline WHERE orderID=?";
+                PreparedStatement pStmnt2 = cnnct.prepareStatement(preQueryStatement2);
+                pStmnt2.setString(1, rs.getString("orderID"));
+                ResultSet rs2 = pStmnt2.executeQuery();
+                ArrayList<ProductBean> products = new ArrayList<ProductBean>();
+                ProductDB prodDB = new ProductDB(dburl, dbUser, dbPassword);
+                while (rs2.next()) {
+                    //set productBean
+                    ProductBean pb = prodDB.queryByID(rs2.getString("productID"));
+                    pb.setQty(rs2.getInt("qty"));
+                    products.add(pb);
+                }
+                ob.setProducts(products);
+                obs.add(ob);
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return obs;
     }
 
     public OrdersBean queryByID(String orderID) {
@@ -388,7 +458,7 @@ public class OrdersDB {
     public String getLastID() {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
-        String x=null;
+        String x = null;
         try {
             cnnct = getConnection();
             //update orders table
@@ -398,7 +468,7 @@ public class OrdersDB {
             ResultSet rs = null;
             rs = pStmnt.executeQuery();
             rs.last();
-            x =rs.getString("orderID");
+            x = rs.getString("orderID");
         } catch (SQLException ex) {
             while (ex != null) {
                 ex.printStackTrace();
@@ -408,8 +478,8 @@ public class OrdersDB {
             ex.printStackTrace();
         }
 
-        int t = Integer.parseInt(x.substring(1,4));
+        int t = Integer.parseInt(x.substring(1, 4));
         t++;
-        return "O"+String.format("%03d",t);
+        return "O" + String.format("%03d", t);
     }
 }
