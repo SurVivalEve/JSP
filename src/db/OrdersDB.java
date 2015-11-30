@@ -412,10 +412,14 @@ public class OrdersDB {
             pStmnt.setString(1, ob.getClient().getId());
             pStmnt.setString(2, ob.getStatus());
             pStmnt.setInt(3, ob.getTotalAmount());
-            if (ob.getDeliveryAddress().equals(""))
+            if(ob.getDeliveryAddress() != null) {
+                if (ob.getDeliveryAddress().equals(""))
+                    pStmnt.setNull(4, java.sql.Types.VARCHAR);
+                else
+                    pStmnt.setString(4, ob.getDeliveryAddress());
+            } else {
                 pStmnt.setNull(4, java.sql.Types.VARCHAR);
-            else
-                pStmnt.setString(4, ob.getDeliveryAddress());
+            }
             if (ob.getPickupTime() == null)
                 pStmnt.setNull(5, java.sql.Types.DATE);
             else

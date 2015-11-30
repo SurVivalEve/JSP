@@ -104,13 +104,63 @@ public class AccountDB {
 
     }
 
-    public boolean identityCheck(String username, String password) {
+    public boolean identityCheckManager(String username, String password) {
+        boolean isClient = false;
+        Connection connection = null;
+        PreparedStatement pStmnt = null;
+        try{
+            connection = getConnection();
+            String preQueryStatement = "SELECT * FROM account WHERE id = ? and password = ? and userType = 'manager'";
+            pStmnt = connection.prepareStatement(preQueryStatement);
+            pStmnt.setString(1,username);
+            pStmnt.setString(2,password);
+            ResultSet rs = pStmnt.executeQuery();
+            if(rs.next()){
+                isClient = true;
+            }
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isClient;
+    }
+
+    public boolean identityCheckClient(String username, String password) {
         boolean isClient = false;
         Connection connection = null;
         PreparedStatement pStmnt = null;
         try{
             connection = getConnection();
             String preQueryStatement = "SELECT * FROM account WHERE id = ? and password = ? and userType = 'client' and validation = 'Y' ";
+            pStmnt = connection.prepareStatement(preQueryStatement);
+            pStmnt.setString(1,username);
+            pStmnt.setString(2,password);
+            ResultSet rs = pStmnt.executeQuery();
+            if(rs.next()){
+                isClient = true;
+            }
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isClient;
+    }
+
+    public boolean identityCheckUnVerifyClient(String username, String password) {
+        boolean isClient = false;
+        Connection connection = null;
+        PreparedStatement pStmnt = null;
+        try{
+            connection = getConnection();
+            String preQueryStatement = "SELECT * FROM account WHERE id = ? and password = ? and userType = 'client' and validation = 'N' ";
             pStmnt = connection.prepareStatement(preQueryStatement);
             pStmnt.setString(1,username);
             pStmnt.setString(2,password);

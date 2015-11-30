@@ -1,6 +1,7 @@
 <%@ page import="bean.OrdersBean" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="db.OrdersDB" %>
 <%--
   Created by IntelliJ IDEA.
   User: Sur.Vival
@@ -16,6 +17,7 @@
 </head>
 <%
     ArrayList<OrdersBean> orderList = (ArrayList<OrdersBean>) session.getAttribute("orderList");
+
 %>
 <body>
 <div class="tg-wrap">
@@ -47,6 +49,8 @@
             SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             SimpleDateFormat sf2 = new SimpleDateFormat("dd-MM-yyyy");
             for (int i = 0; i < orderList.size(); i++) {
+                OrdersDB orderDB = new OrdersDB("jdbc:mysql://kazechan.ddns.net:3306/jsp", "jsp", "jsp");
+                ArrayList<OrdersBean> newOrderList = orderDB.queryMyOrders(orderList.get(i).getClient().getId());
                 out.println("<tr>");
                 out.println("<td class=\"tg-jsj9\">"+orderList.get(i).getOrderID()+"</td>");
                 out.println("<td class=\"tg-jsj9\">"+orderList.get(i).getClient().getName()+"</td>");
@@ -63,7 +67,7 @@
                 else
                     out.println("<td class=\"tg-jsj9\">"+sf2.format(orderList.get(i).getPickupTime())+"</td>");
 
-                out.println("<td class=\"tg-jsj9\">"+orderList.get(i).getCancelled()+"</td>");
+                out.println("<td class=\"tg-jsj9\">"+newOrderList.get(i).getCancelled()+"</td>");
                 out.println("<td class=\"tg-jsj9\"><a href=\"profile?action=changeStatus&orderID="+orderList.get(i).getOrderID()+"\">Cancel</a></td>");
             }
         %>

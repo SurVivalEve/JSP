@@ -55,7 +55,11 @@ public class ProfileController extends HttpServlet {
     }
 
     private void changeStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String orderID = request.getParameter("orderID");
+        OrdersBean order = ordersDB.queryByID(orderID);
+        order.setCancelled(true);
+        ordersDB.editRecord(order);
+        response.sendRedirect("orderManage.jsp");
     }
 
     private void showOrdersHistory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -33,9 +33,11 @@
     <h1>Profile Setting</h1>
 </div>
 <div id="nav">
+    <a href="index.jsp"><b>Home</b></a><br>
     <a href="javascript:void(0);" onclick="show('profile?action=showOrder&clientID=<%=client.getId()%>')"><b>Order manage</b></a><br>
     <a href="javascript:void(0);" onclick="show('profile?action=orderHistory&clientID=<%=client.getId()%>')"><b>Order History</b></a><br>
     <a href="javascript:void(0);" onclick="show('personalDetails.jsp')"><b>Personal information</b></a><br>
+
 </div>
 
 <div id="section">

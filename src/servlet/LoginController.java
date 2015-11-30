@@ -48,21 +48,24 @@ public class LoginController extends HttpServlet {
     private void doAuthenticate(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         String id = req.getParameter("username");
         String password = req.getParameter("password");
-        String targetURL;
+        String targetURL = "";
         // har code username and password is abc and 123
-        if(db.isValidUser(id,password)) {
+        if(db.isValidUser(id,password) && !db.identityCheckUnVerifyClient(id,password)) {
             // obtain session from request
-            if (db.identityCheck(id, password)) {
+            if (db.identityCheckClient(id, password)) {
                 HttpSession session = req.getSession(true);
                 AccountBean client = db.queryByID(id);
                 session.setAttribute("userInfo", client);
                 targetURL = "/index.jsp";
-            } else {
+            }
+
+            if (db.identityCheckManager(id,password)){
                 HttpSession session = req.getSession(true);
                 AccountBean admin = db.queryByID(id);
                 session.setAttribute("adminInfo",admin);
                 targetURL = "/manager.jsp";
             }
+
         } else {
             targetURL = "/loginError.jsp";
         }
